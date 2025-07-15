@@ -7,11 +7,19 @@ class Record:
     """
     Represents contact name and list of phones
     """
+    record_id = 1
 
     def __init__(self, name: str):
         self.name = Name(name)
         self.phones: list(Phone) = []
         self.birthday: Birthday = None
+        self.__contact_id = Record.record_id
+        Record.record_id += 1
+
+    @property
+    def contact_id(self) -> int:
+        """Get contact id"""
+        return self.__contact_id
 
     def add_phone(self, phone: str) -> None:
         self.phones.append(Phone(phone))
@@ -62,7 +70,7 @@ class Record:
         self.birthday = Birthday(birthday)
 
     def __str__(self):
-        return f"Contact name: {self.name}, birthday: {self.birthday}, phones: {'; '.join(str(p) for p in self.phones)}"
+        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, phones: {'; '.join(str(p) for p in self.phones)}"
 
     def __repr__(self):
-        return f"Contact name: {self.name}, birthday: {self.birthday}, phones: {'; '.join(str(p) for p in self.phones)}"
+        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, phones: {'; '.join(str(p) for p in self.phones)}"
