@@ -1,0 +1,88 @@
+from decorators import input_error
+from models.address_book import AddressBook
+from models.record import Record
+
+
+def user_hello() -> str:
+    return "How can I help you?"
+
+
+@input_error
+def add_contact(book: AddressBook, contact_data: list[str]) -> str:
+    name = contact_data[0]
+    phone = contact_data[1] if len(contact_data) > 1 else None
+    record = book.find(name)
+    message = "Contact updated."
+    if not record:
+        record = Record(name)
+        book.add_record(record)
+        message = "Contact added."
+    if phone:
+        record.add_phone(phone)
+    return message
+
+
+@input_error
+def find_contact(book: AddressBook, contact_data: list):
+    name = contact_data[0]
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f'Contact with name [{name}] not found.')
+    return contact
+
+
+@input_error
+def delete_contact(book: AddressBook, contact_data: list):
+    name = contact_data[0]
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f'Contact with name [{name}] not found.')
+    book.delete_record(contact.name.value)
+    return f"Contact {contact.name.value} is removed."
+
+
+@input_error
+def change_contact(book: AddressBook, contact_data: list[str]) -> str:
+    name, phone = contact_data
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f'Contact with name [{name}] not found.')
+    contact.add_phone(phone)
+    return "Contact updated."
+
+
+@input_error
+def show_phone(book: AddressBook, contact_data: list) -> str:
+    name = contact_data[0]
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f'Contact with name [{name}] not found.')
+    return f"{name.upper()}: {'; '.join(str(p) for p in contact.phones)}"
+
+
+@input_error
+def add_birthday(book: AddressBook, contact_data: list) -> str:
+    name, birthday = contact_data
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f'Contact with name [{name}] not found.')
+    contact.add_birthday(birthday)
+    return "Contact's birthday added."
+
+
+@input_error
+def show_birthday(book: AddressBook, contact_data: list) -> str:
+    name = contact_data[0]
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f'Contact with name [{name}] not found.')
+    return f"Birthday for {name}: {contact.birthday.value}"
+
+
+@input_error
+def birthdays(book: AddressBook):
+    celebrating_contacts = ""
+    contacts = book.get_upcoming_birthdays()
+    for contact in contacts:
+        celebrating_contacts += f"Congratulation date for {contact["name"]} ({contact["birthday"]}): {contact["congratulation_date"]}\n"
+    return celebrating_contacts
