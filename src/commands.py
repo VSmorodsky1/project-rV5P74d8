@@ -1,10 +1,20 @@
 from decorators import input_error
 from models.address_book import AddressBook
 from models.record import Record
+from render_table import render_table
 
 
 def user_hello() -> str:
     return "How can I help you?"
+
+
+@input_error
+def show_all(book: AddressBook) -> str:
+    if not book.data:
+        return "Address book is empty."
+    headers = ["name", "birthday", "phones"]
+    records = list(book.data)
+    render_table(records, keys=headers, title="📒 Address Book")
 
 
 @input_error
@@ -27,7 +37,7 @@ def find_contact(book: AddressBook, contact_data: list):
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     return contact
 
 
@@ -36,7 +46,7 @@ def delete_contact(book: AddressBook, contact_data: list):
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     book.delete_record(contact.name.value)
     return f"Contact {contact.name.value} is removed."
 
@@ -46,7 +56,7 @@ def change_contact(book: AddressBook, contact_data: list[str]) -> str:
     name, phone = contact_data
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     contact.add_phone(phone)
     return "Contact updated."
 
@@ -56,7 +66,7 @@ def show_phone(book: AddressBook, contact_data: list) -> str:
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     return f"{name.upper()}: {'; '.join(str(p) for p in contact.phones)}"
 
 
@@ -65,7 +75,7 @@ def add_birthday(book: AddressBook, contact_data: list) -> str:
     name, birthday = contact_data
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     contact.add_birthday(birthday)
     return "Contact's birthday added."
 
@@ -75,7 +85,7 @@ def show_birthday(book: AddressBook, contact_data: list) -> str:
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     return f"Birthday for {name}: {contact.birthday.value}"
 
 
@@ -83,6 +93,6 @@ def show_birthday(book: AddressBook, contact_data: list) -> str:
 def birthdays(book: AddressBook):
     celebrating_contacts = ""
     contacts = book.get_upcoming_birthdays()
-    for contact in contacts:
-        celebrating_contacts += f"Congratulation date for {contact["name"]} ({contact["birthday"]}): {contact["congratulation_date"]}\n"
-    return celebrating_contacts
+    # for contact in contacts:
+    #     celebrating_contacts += f"Congratulation date for {contact["name"]} ({contact["birthday"]}): {contact["congratulation_date"]}\n"
+    # return celebrating_contacts

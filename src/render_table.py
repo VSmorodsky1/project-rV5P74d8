@@ -1,4 +1,4 @@
-from typing import Union, List, Optional
+from typing import List, Optional, Union
 
 from rich.console import Console
 from rich.table import Table
@@ -11,6 +11,7 @@ def render_table(
     header_style: str = "bold magenta",
 ) -> str:
     """Render a table from a list of dictionaries or objects."""
+
     table = Table(
         title=title, show_header=True, show_lines=True, header_style=header_style
     )
