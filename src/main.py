@@ -1,11 +1,12 @@
 import sys
 
-from colorama import Fore, Style
+from colorama import Fore, init
 
 from utils import parse_input
 from commands import add_contact, change_contact, show_phone, user_hello, add_birthday, birthdays, find_contact, delete_contact, show_birthday
 from models.address_book import AddressBook
 
+init(autoreset=True)
 
 def main():
     book = AddressBook()
@@ -15,7 +16,7 @@ def main():
             user_input = input("Enter a command:").strip().lower()
             command, *args = parse_input(user_input)
             if command in ["exit", "close"]:
-                print(f"{Fore.GREEN}Good bye! {Style.RESET_ALL}")
+                print(f"{Fore.GREEN}Goodbye!")
                 break
 
             match command:
@@ -33,7 +34,7 @@ def main():
                     print(show_phone(book, args))
                 case 'all':
                     for contact in book:
-                        print(f"{Fore.GREEN}- {contact} {Style.RESET_ALL}")
+                        print(f"{Fore.GREEN}- {contact}")
                 case 'add-birthday':
                     print(add_birthday(book, args))
                 case 'show-birthday':
@@ -43,11 +44,11 @@ def main():
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
         except TypeError as error:
-            print(f"{Fore.RED}[Error] {str(error)} {Style.RESET_ALL}")
+            print(f"{Fore.RED}[Error] {str(error)}")
         except ValueError as error:
-            print(f"{Fore.RED}[Error] {str(error)} {Style.RESET_ALL}")
+            print(f"{Fore.RED}[Error] {str(error)}")
         except KeyboardInterrupt:
-            print(f"{Fore.GREEN}Good bye! {Style.RESET_ALL}")
+            print(f"{Fore.GREEN}Goodbye!")
             sys.exit(0)
 
 
