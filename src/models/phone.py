@@ -1,24 +1,13 @@
-import re
-
 from models.field import Field
-from exceptions import PhoneFormatError
+from validations import validate_phone
 
 
-def validate_phone_attr(cls):
-    """
-    Validate value when it tries to be saved (set value in constructor or using set methods)
-    """
-    original_setattr = cls.__setattr__
-
-    def custom_setattr(self, name, value):
-        if re.match(r'^\d{10}$', value) is None:
-            raise PhoneFormatError("Phone value must consists of 10 digits")
-        original_setattr(self, name, value)
-
-    cls.__setattr__ = custom_setattr
-    return cls
-
-
-@validate_phone_attr
 class Phone(Field):
-    pass
+    @validate_phone
+    def __init__(self, value):
+        super().__init__(value)
+
+    @Field.value.setter
+    @validate_phone
+    def value(self, value):
+        super().value = value

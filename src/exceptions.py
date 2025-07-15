@@ -6,9 +6,17 @@ class PhoneFormatError(Exception):
         super().__init__(self.message)
 
 
-class BirthdayFormatError(Exception):
+class DateFormatError(Exception):
     """Exception raised for errors in the birthday format."""
 
     def __init__(self, message="Birthday format is incorrect."):
+        self.message = message
+        super().__init__(self.message)
+
+
+class RequiredValueError(Exception):
+    """Exception raised when value is empty."""
+
+    def __init__(self, message="Value cannot be empty."):
         self.message = message
         super().__init__(self.message)

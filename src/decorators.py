@@ -2,7 +2,7 @@ from functools import wraps
 
 from colorama import Fore, Style
 
-from exceptions import PhoneFormatError, BirthdayFormatError
+from exceptions import PhoneFormatError, DateFormatError, RequiredValueError
 
 
 def input_error(fn: callable):
@@ -11,9 +11,11 @@ def input_error(fn: callable):
     def inner_fn(*args, **kwargs):
         try:
             return f"{Fore.GREEN}{fn(*args, **kwargs)}{Style.RESET_ALL}"
+        except RequiredValueError as error:
+            return f"{Fore.RED}[Error] {str(error)} {Style.RESET_ALL}"
         except PhoneFormatError as error:
             return f"{Fore.RED}[Error] {str(error)} {Style.RESET_ALL}"
-        except BirthdayFormatError as error:
+        except DateFormatError as error:
             return f"{Fore.RED}[Error] {str(error)} {Style.RESET_ALL}"
         except KeyError as error:
             return f"{Fore.RED}[Error] Enter the name {Style.RESET_ALL}"
