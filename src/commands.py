@@ -93,6 +93,6 @@ def show_birthday(book: AddressBook, contact_data: list) -> str:
 def birthdays(book: AddressBook):
     celebrating_contacts = ""
     contacts = book.get_upcoming_birthdays()
-    # for contact in contacts:
-    #     celebrating_contacts += f"Congratulation date for {contact["name"]} ({contact["birthday"]}): {contact["congratulation_date"]}\n"
-    # return celebrating_contacts
+    for contact in contacts:
+        celebrating_contacts += f"Congratulation date for {contact.name} ({contact.birthday}): {contact.congratulation_date}\n"
+    return celebrating_contacts
