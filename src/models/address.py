@@ -1,8 +1,12 @@
-class Address:
-    def __init__(self, value: str):
-        if not value:
-            raise ValueError("Address cannot be empty.")
-        self.value = value
+from models.field import Field
+from validations import required
 
-    def __str__(self):
-        return self.value
+class Address(Field):
+    @required
+    def __init__(self, value: str):
+        super().__init__(value)
+
+    @Field.value.setter
+    @required
+    def value(self, value: str) -> None:
+        super().value = value

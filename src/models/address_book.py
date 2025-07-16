@@ -3,28 +3,11 @@ from datetime import datetime, timedelta
 
 from models.record import Record
 
-import pickle
-from pathlib import Path
-
-
 class AddressBook(UserList):
     """
     Represents a storage for Records
     """
-    DATA_FILE = Path("contacts.pkl")
-
-    def save_data(self):
-        """Save contact records to disk"""
-        with open(self.DATA_FILE, "wb") as file:
-            pickle.dump(self.data, file)
-
-    def load_data(self):
-        """Load contact records from disk if file exists"""
-        if self.DATA_FILE.exists():
-            with open(self.DATA_FILE, "rb") as file:
-                self.data = pickle.load(file)
-
-
+   
     def add_record(self, contact_record: Record) -> None:
         """
         Add contact into the book
