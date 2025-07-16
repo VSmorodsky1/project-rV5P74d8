@@ -1,11 +1,11 @@
 from models.name import Name
 from models.phone import Phone
 from models.birthday import Birthday
-
+from models.email import Email
 
 class Record:
     """
-    Represents contact name and list of phones
+    Represents contact name and list of phones, birthday, email, and address
     """
     record_id = 1
 
@@ -13,6 +13,7 @@ class Record:
         self.name = Name(name)
         self.phones: list(Phone) = []
         self.birthday: Birthday = None
+        self.email: Email = None
         self.__contact_id = Record.record_id
         Record.record_id += 1
 
@@ -70,7 +71,7 @@ class Record:
         self.birthday = Birthday(birthday)
 
     def __str__(self):
-        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, phones: {'; '.join(str(p) for p in self.phones)}"
+        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, phones: {'; '.join(str(p) for p in self.phones)}"
 
     def __repr__(self):
-        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, phones: {'; '.join(str(p) for p in self.phones)}"
+        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, phones: {'; '.join(str(p) for p in self.phones)}"
