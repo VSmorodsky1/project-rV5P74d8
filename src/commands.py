@@ -27,7 +27,7 @@ def find_contact(book: AddressBook, contact_data: list):
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     return contact
 
 
@@ -36,7 +36,7 @@ def delete_contact(book: AddressBook, contact_data: list):
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     book.delete_record(contact.name.value)
     return f"Contact {contact.name.value} is removed."
 
@@ -46,7 +46,7 @@ def change_contact(book: AddressBook, contact_data: list[str]) -> str:
     name, phone = contact_data
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     contact.add_phone(phone)
     return "Contact updated."
 
@@ -56,7 +56,7 @@ def show_phone(book: AddressBook, contact_data: list) -> str:
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     return f"{name.upper()}: {'; '.join(str(p) for p in contact.phones)}"
 
 
@@ -65,7 +65,7 @@ def add_birthday(book: AddressBook, contact_data: list) -> str:
     name, birthday = contact_data
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     contact.add_birthday(birthday)
     return "Contact's birthday added."
 
@@ -75,7 +75,7 @@ def show_birthday(book: AddressBook, contact_data: list) -> str:
     name = contact_data[0]
     contact = book.find(name)
     if not contact:
-        raise ValueError(f'Contact with name [{name}] not found.')
+        raise ValueError(f"Contact with name [{name}] not found.")
     return f"Birthday for {name}: {contact.birthday.value}"
 
 
