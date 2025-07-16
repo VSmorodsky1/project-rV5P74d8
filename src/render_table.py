@@ -12,9 +12,7 @@ def render_table(
 ) -> str:
     """Render a table from a list of dictionaries or objects."""
 
-    table = Table(
-        title=title, show_header=True, show_lines=True, header_style=header_style
-    )
+    table = Table(title=title, show_header=True, show_lines=True, header_style=header_style)
 
     # Create table headers based on the keys
     item = objects[0]
@@ -38,9 +36,7 @@ def render_table(
                 value = getattr(obj, key, missing_placeholder)
 
             if isinstance(value, list):
-                value = (
-                    ", ".join(str(v) for v in value) if value else missing_placeholder
-                )
+                value = ", ".join(str(v) for v in value) if value else missing_placeholder
             elif value in (None, ""):
                 value = missing_placeholder
 
