@@ -52,13 +52,39 @@ def delete_contact(book: AddressBook, contact_data: list):
 
 
 @input_error
-def change_contact(book: AddressBook, contact_data: list[str]) -> str:
-    name, phone = contact_data
+def add_phone(book: AddressBook) -> str:
+    name = input("Enter contact's name:")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
+    phone = input("Enter phone number:")
     contact.add_phone(phone)
-    return "Contact updated."
+    return f"Phone {phone} added for {name}."
+
+
+@input_error
+def edit_phone(book: AddressBook):
+    """Edit contact's phone number"""
+    try:
+        name = input("Enter contact's name:")
+        contact = book.find(name)
+        if not contact:
+            raise ValueError(f"Contact with name [{name}] not found.")
+
+        header = ["id", "phone"]
+        render_table(
+            [{"id": index, "phone": phone} for index, phone in enumerate(contact.phones)],
+            keys=header,
+            title=f"{name}'s phones:",
+        )
+
+        id = int(input("Enter phone id to edit:"))
+        new_phone = input("Enter new phone number:")
+        contact.delete_phone(contact.phones[id].value)
+        contact.add_phone(new_phone)
+        return f"Phone number updated for {name}"
+    except IndexError:
+        raise IndexError(f"Phone doesn't exist.")
 
 
 @input_error

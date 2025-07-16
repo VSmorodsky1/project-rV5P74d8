@@ -6,13 +6,14 @@ from commands import (
     add_birthday,
     add_contact,
     birthdays,
-    change_contact,
+    add_phone,
     delete_contact,
     find_contact,
     show_all,
     show_birthday,
     show_phone,
     user_hello,
+    edit_phone,
 )
 from models.address_book import AddressBook
 from utils import parse_input
@@ -36,8 +37,10 @@ def main():
                     print(user_hello())
                 case "add":
                     print(add_contact(book, args))
-                case "change":
-                    print(change_contact(book, args))
+                case "add_phone":
+                    print(add_phone(book))
+                case "edit_phone":
+                    print(edit_phone(book))
                 case "find":
                     print(find_contact(book, args))
                 case "delete":
