@@ -13,6 +13,7 @@ from commands import (
     show_birthday,
     show_phone,
     user_hello,
+    add_note,
 )
 from models.address_book import AddressBook
 from utils import parse_input
@@ -52,6 +53,8 @@ def main():
                     print(show_birthday(book, args))
                 case "birthdays":
                     print(birthdays(book))
+                case "add_note":
+                    print(add_note())
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
         except TypeError as error:

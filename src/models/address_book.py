@@ -31,6 +31,13 @@ class AddressBook(UserList):
             if record.name.value.lower() == name.lower():
                 return record
 
+    def find_by(self, id: int) -> Record | None:
+        """Find contact in the book by contact_id"""
+
+        for record in self.data:
+            if record.contact_id == id:
+                return record
+
     def delete_record(self, name: str) -> None:
         """
         Remove contact from the book

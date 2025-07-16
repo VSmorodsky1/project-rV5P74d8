@@ -1,7 +1,10 @@
+from rich.console import Console
+
 from decorators import input_error
+from render_table import render_table
 from models.address_book import AddressBook
 from models.record import Record
-from render_table import render_table
+from models.note import Note
 
 
 def user_hello() -> str:
@@ -96,3 +99,19 @@ def birthdays(book: AddressBook):
     for contact in contacts:
         celebrating_contacts += f"Congratulation date for {contact.name} ({contact.birthday}): {contact.congratulation_date}\n"
     return celebrating_contacts
+
+
+@input_error
+def add_note():
+    title = input("Please provide the note title >>> ")
+    note = Note(title)
+
+    description = input("Please provide the note description >>> ")
+    if description:
+        note.description = description
+
+    note_card = note.display()
+    console = Console(record=True)
+    console.print("\nYour notes:\n", note_card)
+    console.export_text()
+    return ""
