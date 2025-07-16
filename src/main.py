@@ -2,19 +2,20 @@ import sys
 
 from colorama import Fore, init
 
-from utils import parse_input
 from commands import (
+    add_birthday,
     add_contact,
+    birthdays,
     change_contact,
+    delete_contact,
+    find_contact,
+    show_all,
+    show_birthday,
     show_phone,
     user_hello,
-    add_birthday,
-    birthdays,
-    find_contact,
-    delete_contact,
-    show_birthday,
 )
 from models.address_book import AddressBook
+from utils import parse_input
 
 init(autoreset=True)
 
@@ -44,8 +45,7 @@ def main():
                 case "phone":
                     print(show_phone(book, args))
                 case "all":
-                    for contact in book:
-                        print(f"{Fore.GREEN}- {contact}")
+                    show_all(book)
                 case "add-birthday":
                     print(add_birthday(book, args))
                 case "show-birthday":

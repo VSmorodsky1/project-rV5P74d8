@@ -1,10 +1,20 @@
 from decorators import input_error
 from models.address_book import AddressBook
 from models.record import Record
+from render_table import render_table
 
 
 def user_hello() -> str:
     return "How can I help you?"
+
+
+@input_error
+def show_all(book: AddressBook) -> str:
+    if not book.data:
+        return "Address book is empty."
+    headers = ["name", "birthday", "phones"]
+    records = list(book.data)
+    render_table(records, keys=headers, title="📒 Address Book")
 
 
 @input_error
@@ -84,5 +94,5 @@ def birthdays(book: AddressBook):
     celebrating_contacts = ""
     contacts = book.get_upcoming_birthdays()
     for contact in contacts:
-        celebrating_contacts += f"Congratulation date for {contact["name"]} ({contact["birthday"]}): {contact["congratulation_date"]}\n"
+        celebrating_contacts += f"Congratulation date for {contact.name} ({contact.birthday}): {contact.congratulation_date}\n"
     return celebrating_contacts
