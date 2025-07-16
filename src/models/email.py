@@ -3,18 +3,12 @@ from validations import validate_email
 
 
 class Email(Field):
-    def init(self, value: str):
-        self._value = None
-        self.value = value  
+    @validate_email
+    def __init__(self, value: str):
+        super().__init__(value)
 
-    @property
-    def value(self):
-        return self._value
-
-    @value.setter
+    @Field.value.setter
     @validate_email
     def value(self, value):
-        self._value = value
-
-    def str(self):
-        return self.value
+        super().value = value
+        
