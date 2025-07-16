@@ -39,9 +39,6 @@ class Note:
     def contact_id(self):
         self.__contact_id = self.value
 
-    def add_descriptin(self, text):
-        pass
-
     def change_descriptin(self, text):
         pass
 
