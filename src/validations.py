@@ -48,8 +48,6 @@ def validate_date(func):
             datetime.strptime(value, date_format)
             return func(*args, **kwargs)
         except ValueError:
-            raise DateFormatError(
-                f"Value [{value}] doesn't not match to format: {date_format}"
-            )
+            raise DateFormatError(f"Value [{value}] doesn't not match to format: {date_format}")
 
     return wrapper
