@@ -78,9 +78,7 @@ class AddressBook(UserList):
                 {
                     "name": record.name.value,
                     "birthday": record.birthday.value,
-                    "congratulation_date": birthday_congratulation_date.strftime(
-                        "%d.%m.%Y"
-                    ),
+                    "congratulation_date": birthday_congratulation_date.strftime("%d.%m.%Y"),
                 }
             )
         return birthdays_on_week
