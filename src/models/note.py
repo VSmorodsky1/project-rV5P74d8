@@ -42,9 +42,6 @@ class Note:
     def change_descriptin(self, text):
         pass
 
-    def change_title(self, text):
-        pass
-
     def add_contact_depends(self, id):
         pass
 
