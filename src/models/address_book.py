@@ -3,11 +3,12 @@ from datetime import datetime, timedelta
 
 from models.record import Record
 
+
 class AddressBook(UserList):
     """
     Represents a storage for Records
     """
-   
+
     def add_record(self, contact_record: Record) -> None:
         """
         Add contact into the book
@@ -55,14 +56,17 @@ class AddressBook(UserList):
         for record in self.data:
             if not record.birthday:
                 continue
-            birthday_date = datetime.strptime(
-                record.birthday.value, "%d.%m.%Y").date()
+            birthday_date = datetime.strptime(record.birthday.value, "%d.%m.%Y").date()
             birthday_congratulation_date = datetime(
-                year=current_date.year, month=birthday_date.month, day=birthday_date.day).date()
+                year=current_date.year, month=birthday_date.month, day=birthday_date.day
+            ).date()
             birthday_next_year = datetime(
-                year=current_date.year + 1, month=birthday_date.month, day=birthday_date.day).date()
+                year=current_date.year + 1,
+                month=birthday_date.month,
+                day=birthday_date.day,
+            ).date()
             if birthday_congratulation_date < current_date:
-                if (birthday_next_year - current_date > birthday_limit):
+                if birthday_next_year - current_date > birthday_limit:
                     continue
                 birthday_congratulation_date = birthday_next_year
             match birthday_congratulation_date.weekday():
@@ -70,9 +74,11 @@ class AddressBook(UserList):
                     birthday_congratulation_date += timedelta(days=2)
                 case 6:
                     birthday_congratulation_date += timedelta(days=1)
-            birthdays_on_week.append({
-                "name": record.name.value,
-                "birthday": record.birthday.value,
-                "congratulation_date": birthday_congratulation_date.strftime("%d.%m.%Y")
-            })
+            birthdays_on_week.append(
+                {
+                    "name": record.name.value,
+                    "birthday": record.birthday.value,
+                    "congratulation_date": birthday_congratulation_date.strftime("%d.%m.%Y"),
+                }
+            )
         return birthdays_on_week

@@ -3,10 +3,12 @@ from models.phone import Phone
 from models.birthday import Birthday
 from models.address import Address
 
+
 class Record:
     """
     Represents contact name and list of phones
     """
+
     record_id = 1
 
     def __init__(self, name: str):
@@ -66,7 +68,7 @@ class Record:
 
     def add_birthday(self, birthday: str) -> None:
         """
-        Add contact's birthday 
+        Add contact's birthday
         """
         self.birthday = Birthday(birthday)
 
@@ -74,7 +76,7 @@ class Record:
         """
         Add contact's address.
         """
-        self.address = Address(address)    
+        self.address = Address(address)
 
     def __str__(self):
         return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, address: {self.address}, phones: {'; '.join(str(p) for p in self.phones)}"
