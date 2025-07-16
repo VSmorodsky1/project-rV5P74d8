@@ -17,19 +17,19 @@ from commands import (
 from models.address_book import AddressBook
 from utils import parse_input
 
+from address_book_data_management import load_data, save_data
+
 init(autoreset=True)
 
 
 def main():
-    book = AddressBook()
-    book.load_data()
+    book = load_data()
     print("Welcome to Assistant Bot!")
     while True:
         try:
             user_input = input("Enter a command:").strip().lower()
             command, *args = parse_input(user_input)
             if command in ["exit", "close"]:
-                book.save_data()
                 print(f"{Fore.GREEN}Goodbye!")
                 break
 
@@ -63,6 +63,8 @@ def main():
         except KeyboardInterrupt:
             print(f"{Fore.GREEN}Goodbye!")
             sys.exit(0)
+        finally:
+            save_data(book)
 
 
 if __name__ == "__main__":
