@@ -2,11 +2,23 @@ import sys
 
 from colorama import Fore, init
 
-from utils import parse_input
-from commands import add_contact, change_contact, show_phone, user_hello, add_birthday, birthdays, find_contact, delete_contact, show_birthday
+from commands import (
+    add_birthday,
+    add_contact,
+    birthdays,
+    change_contact,
+    delete_contact,
+    find_contact,
+    show_all,
+    show_birthday,
+    show_phone,
+    user_hello,
+)
 from models.address_book import AddressBook
+from utils import parse_input
 
 init(autoreset=True)
+
 
 def main():
     book = AddressBook()
@@ -20,26 +32,25 @@ def main():
                 break
 
             match command:
-                case 'hello':
+                case "hello":
                     print(user_hello())
-                case 'add':
+                case "add":
                     print(add_contact(book, args))
-                case 'change':
+                case "change":
                     print(change_contact(book, args))
-                case 'find':
+                case "find":
                     print(find_contact(book, args))
-                case 'delete':
+                case "delete":
                     print(delete_contact(book, args))
-                case 'phone':
+                case "phone":
                     print(show_phone(book, args))
-                case 'all':
-                    for contact in book:
-                        print(f"{Fore.GREEN}- {contact}")
-                case 'add-birthday':
+                case "all":
+                    show_all(book)
+                case "add-birthday":
                     print(add_birthday(book, args))
-                case 'show-birthday':
+                case "show-birthday":
                     print(show_birthday(book, args))
-                case 'birthdays':
+                case "birthdays":
                     print(birthdays(book))
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
@@ -52,5 +63,5 @@ def main():
             sys.exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

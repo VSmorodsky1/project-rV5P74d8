@@ -9,6 +9,7 @@ init(autoreset=True)
 
 def input_error(fn: callable):
     """Decorator to handle input errors for command functions."""
+
     @wraps(fn)
     def inner_fn(*args, **kwargs):
         try:
@@ -27,4 +28,5 @@ def input_error(fn: callable):
             return f"{Fore.RED}[Error] Enter the argument for the command"
         except IndexError:
             return f"{Fore.RED}[Error] Enter the command with arguments"
+
     return inner_fn

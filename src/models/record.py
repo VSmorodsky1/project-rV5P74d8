@@ -7,6 +7,7 @@ class Record:
     """
     Represents contact name and list of phones, birthday, email, and address
     """
+
     record_id = 1
 
     def __init__(self, name: str):
@@ -66,7 +67,7 @@ class Record:
 
     def add_birthday(self, birthday: str) -> None:
         """
-        Add contact's birthday 
+        Add contact's birthday
         """
         self.birthday = Birthday(birthday)
 
