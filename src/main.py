@@ -39,7 +39,7 @@ def main():
                 case "hello":
                     print(user_hello())
                 case "add":
-                    print(add_contact(book, args))
+                    print(add_contact(book))
                 case "find_contact":
                     find_contact(book)
                 case "add_phone":

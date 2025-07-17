@@ -22,17 +22,23 @@ def show_all(book: AddressBook) -> str:
 
 
 @input_error
-def add_contact(book: AddressBook, contact_data: list[str]) -> str:
-    name = contact_data[0]
-    phone = contact_data[1] if len(contact_data) > 1 else None
+def add_contact(book: AddressBook) -> str:
+    name = input("Enter contact name >>> ")
     record = book.find(name)
     message = "Contact updated."
+
     if not record:
         record = Record(name)
         book.add_record(record)
         message = "Contact added."
-    if phone:
-        record.add_phone(phone)
+
+    phones = input("Enter phone numbers, use ',' like delimiter >>> ")
+
+    if phones:
+        phones = phones.split(",")
+        for phone in phones:
+            record.add_phone(phone.strip())
+
     return message
 
 
@@ -79,7 +85,10 @@ def edit_phone(book: AddressBook):
 
         header = ["id", "phone"]
         render_table(
-            [{"id": index, "phone": phone} for index, phone in enumerate(contact.phones)],
+            [
+                {"id": index, "phone": phone}
+                for index, phone in enumerate(contact.phones)
+            ],
             keys=header,
             title=f"{name}'s phones:",
         )
