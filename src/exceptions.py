@@ -20,3 +20,10 @@ class RequiredValueError(Exception):
     def __init__(self, message="Value cannot be empty."):
         self.message = message
         super().__init__(self.message)
+
+class EmailFormatError(Exception):
+    """Exception raised for errors in the email format."""
+    
+    def __init__(self, message="Email address format is incorrect."):
+        self.message = message
+        super().__init__(self.message)

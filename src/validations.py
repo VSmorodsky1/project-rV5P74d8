@@ -2,7 +2,7 @@ from functools import wraps
 import re
 from datetime import datetime
 
-from exceptions import PhoneFormatError, RequiredValueError, DateFormatError
+from exceptions import PhoneFormatError, RequiredValueError, DateFormatError, EmailFormatError
 
 
 def validate_phone(func):
@@ -50,4 +50,18 @@ def validate_date(func):
         except ValueError:
             raise DateFormatError(f"Value [{value}] doesn't not match to format: {date_format}")
 
+    return wrapper
+
+
+def validate_email(func):
+    """
+    Validate email format
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        value = kwargs.get('value') or (args[1] if len(args) > 1 else None)
+        email_format = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+        if not re.fullmatch(email_format, value):
+            raise EmailFormatError(f"Invalid email address: {value}")
+        return func(*args, **kwargs)
     return wrapper
