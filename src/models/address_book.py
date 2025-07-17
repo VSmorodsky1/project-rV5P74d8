@@ -43,11 +43,11 @@ class AddressBook(UserList):
         matched_contacts = [contact for contact in self.data if name in contact.name.value]
         return matched_contacts
 
-    def find_by(self, id: int) -> Record | None:
+    def find_by_contact_id(self, contact_id: int) -> Record | None:
         """Find contact in the book by contact_id"""
 
         for record in self.data:
-            if record.contact_id == id:
+            if record.contact_id == contact_id:
                 return record
 
     def delete_record(self, name: str) -> None:

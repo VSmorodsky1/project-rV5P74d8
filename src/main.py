@@ -6,13 +6,14 @@ from commands import (
     add_birthday,
     add_contact,
     birthdays,
-    change_contact,
+    add_phone,
     delete_contact,
     find_contact,
     show_all,
     show_birthday,
     show_phone,
     user_hello,
+    edit_phone,
     add_note,
 )
 from models.address_book import AddressBook
@@ -26,7 +27,7 @@ def main():
     print("Welcome to Assistant Bot!")
     while True:
         try:
-            user_input = input("Enter a command:").strip().lower()
+            user_input = input("Enter a command >>> ").strip().lower()
             command, *args = parse_input(user_input)
             if command in ["exit", "close"]:
                 print(f"{Fore.GREEN}Goodbye!")
@@ -37,10 +38,12 @@ def main():
                     print(user_hello())
                 case "add":
                     print(add_contact(book, args))
-                case "change":
-                    print(change_contact(book, args))
                 case "find_contact":
                     find_contact(book)
+                case "add_phone":
+                    print(add_phone(book))
+                case "edit_phone":
+                    print(edit_phone(book))
                 case "delete":
                     print(delete_contact(book, args))
                 case "phone":

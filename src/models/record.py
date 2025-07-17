@@ -12,7 +12,7 @@ class Record:
 
     def __init__(self, name: str):
         self.name = Name(name)
-        self.phones: list(Phone) = []
+        self.phones: list[Phone] = []
         self.birthday: Birthday = None
         self.__contact_id = Record.record_id
         Record.record_id += 1
@@ -23,21 +23,10 @@ class Record:
         return self.__contact_id
 
     def add_phone(self, phone: str) -> None:
-        self.phones.append(Phone(phone))
-
-    def edit_phone(self, phone: str, new_phone: str) -> None:
-        """
-        Update contact's phone
-
-        Args:
-            phone(str): Phone number to replace
-            new_phone(str): New phone number
-        """
         for phone_item in self.phones:
             if phone_item.value == phone:
-                phone_item.value = new_phone
-                return
-        raise ValueError(f"There is no phone with value: {phone}")
+                raise ValueError(f"Phone number {phone} already exists.")
+        self.phones.append(Phone(phone))
 
     def find_phone(self, phone: str) -> Phone:
         """
@@ -51,7 +40,7 @@ class Record:
                 return phone_item
         raise ValueError(f"There is no phone with value: {phone}")
 
-    def delete_phone(self, phone) -> None:
+    def delete_phone(self, phone: str) -> None:
         """
         Delete contact's phone number
 
