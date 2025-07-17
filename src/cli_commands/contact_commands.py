@@ -3,6 +3,7 @@ from colorama import Fore, init
 
 from decorators import input_error
 from models.address_book import AddressBook
+from models.phone import Phone
 from models.record import Record
 from render_table import render_table
 
@@ -57,6 +58,17 @@ def find_contact(book: AddressBook):
     header = ["name", "phones", "birthday"]
     render_table(contacts, keys=header, title=f"Found contacts:")
     return
+
+
+@input_error
+def find_contact_by_phone(book: AddressBook):
+    phone = Phone(input("Enter phone number >>> ").strip()).value
+
+    contacts = book.find_by_phone(phone)
+    if not contacts:
+        raise ValueError(f"Contact with phone [{phone}] not found.")
+    render_table(contacts, keys=["name", "phones", "birthday"], title="Found contacts:")
+    return ""
 
 
 @input_error

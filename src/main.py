@@ -7,6 +7,7 @@ from cli_commands.contact_commands import (
     add_contact,
     delete_contact,
     find_contact,
+    find_contact_by_phone,
     show_all,
     user_hello,
 )
@@ -38,6 +39,8 @@ def main():
                     print(add_contact(book))
                 case "find_contact":
                     print(find_contact(book))
+                case "find_contact_by_phone":
+                    print(find_contact_by_phone(book))
                 case "add_phone":
                     print(add_phone(book))
                 case "edit_phone":
