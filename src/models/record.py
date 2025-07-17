@@ -65,9 +65,15 @@ class Record:
 
     def add_address(self, address: str) -> None:
         """
-        Add contact's address.
+        Add contact's address
         """
         self.address = Address(address)
+
+    def add_email(self, email: str) -> None:
+        """
+        Add contact's email
+        """
+        self.email = Email(email)
 
     def __str__(self):
 

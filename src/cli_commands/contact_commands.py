@@ -17,7 +17,7 @@ def user_hello() -> str:
 def show_all(book: AddressBook) -> str:
     if not book.data:
         return "Address book is empty."
-    headers = ["name", "birthday", "phones", "address"]
+    headers = ["name", "birthday", "phones", "address", "email"]
     records = list(book.data)
     render_table(records, keys=headers, title="📒 Address Book")
 
