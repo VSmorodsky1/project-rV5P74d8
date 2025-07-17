@@ -50,7 +50,7 @@ def add_contact(book: AddressBook) -> str:
 
 @input_error
 def find_contact(book: AddressBook):
-    name = input("Enter contact full or partial name to find >>> ")
+    name = input("Enter contact name >>> ")
     contacts = book.find_matched(name)
     if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
@@ -60,10 +60,15 @@ def find_contact(book: AddressBook):
 
 
 @input_error
-def delete_contact(book: AddressBook, contact_data: list):
-    name = contact_data[0]
+def delete_contact(book: AddressBook):
+    name = input("Enter contact name >>> ")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
+    confirm = (
+        input(f"Are you sure you want to delete '{contact.name.value}'? (y/n): ").strip().lower()
+    )
+    if confirm not in ["yes", "y"]:
+        return "Deletion cancelled."
     book.delete_record(contact.name.value)
     return f"Contact {contact.name.value} is removed."
