@@ -4,6 +4,7 @@ from models.birthday import Birthday
 from models.address import Address
 from models.email import Email
 
+
 class Record:
     """
     Represents contact name and list of phones, birthday, email, and address
@@ -74,6 +75,3 @@ class Record:
 
     def __repr__(self):
         return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, address: {self.address}, phones: {'; '.join(str(p) for p in self.phones)}"
-      
-
-   

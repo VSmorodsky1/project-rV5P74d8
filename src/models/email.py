@@ -11,4 +11,3 @@ class Email(Field):
     @validate_email
     def value(self, value):
         super().value = value
-        
