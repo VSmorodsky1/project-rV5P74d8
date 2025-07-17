@@ -16,6 +16,7 @@ from commands import (
     edit_phone,
     add_note,
     add_address,
+    add_email,
 )
 from models.address_book import AddressBook
 from utils import parse_input
@@ -63,6 +64,8 @@ def main():
                     print(add_note())
                 case "add_address":
                     print(add_address(book))
+                case "add_email":
+                    print(add_email(book))
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
         except TypeError as error:

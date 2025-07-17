@@ -7,9 +7,11 @@ from render_table import render_table
 from models.address_book import AddressBook
 from models.record import Record
 from models.note import Note
+from models.email import Email
 from exceptions import PhoneFormatError
 
 init(autoreset=True)
+
 
 
 def user_hello() -> str:
@@ -20,7 +22,7 @@ def user_hello() -> str:
 def show_all(book: AddressBook) -> str:
     if not book.data:
         return "Address book is empty."
-    headers = ["name", "birthday", "phones", "address"]
+    headers = ["name", "birthday", "phones", "address", "email"]
     records = list(book.data)
     render_table(records, keys=headers, title="📒 Address Book")
 
@@ -174,3 +176,15 @@ def add_address(book: AddressBook) -> str:
     address = input("Enter contact's address >>> ")
     contact.add_address(address)
     return f"Address for {name} added."
+
+
+@input_error
+def add_email(book: AddressBook) -> str:
+    name = input("Enter contact's name >>> ")
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f"Contact with name [{name}] not found.")
+
+    email = input("Enter contact's email >>> ")
+    contact.add_email(email)
+    return f"Email for {name} added."
