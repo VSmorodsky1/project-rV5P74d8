@@ -25,17 +25,29 @@ class AddressBook(UserList):
         Args:
             name (str): contact name
         Return:
-            Record: recorn contact data
+            Record: record contact data
         """
         for record in self.data:
             if record.name.value.lower() == name.lower():
                 return record
 
-    def find_by(self, id: int) -> Record | None:
+    def find_matched(self, name: str) -> list[Record] | None:
+        """
+        Find contacts with matched name
+
+        Arg:
+            name (str): contact name
+        Return:
+            list[Record]|None: list of contacts
+        """
+        matched_contacts = [contact for contact in self.data if name in contact.name.value]
+        return matched_contacts
+
+    def find_by_contact_id(self, contact_id: int) -> Record | None:
         """Find contact in the book by contact_id"""
 
         for record in self.data:
-            if record.contact_id == id:
+            if record.contact_id == contact_id:
                 return record
 
     def delete_record(self, name: str) -> None:

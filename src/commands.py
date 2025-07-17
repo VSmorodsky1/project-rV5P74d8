@@ -1,3 +1,4 @@
+from prompt_toolkit import prompt
 from rich.console import Console
 
 from decorators import input_error
@@ -36,12 +37,14 @@ def add_contact(book: AddressBook, contact_data: list[str]) -> str:
 
 
 @input_error
-def find_contact(book: AddressBook, contact_data: list):
-    name = contact_data[0]
-    contact = book.find(name)
-    if not contact:
+def find_contact(book: AddressBook):
+    name = input("Enter contact full or partial name to find >>> ")
+    contacts = book.find_matched(name)
+    if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
-    return contact
+    header = ["name", "phones", "birthday"]
+    render_table(contacts, keys=header, title=f"Found contacts:")
+    return
 
 
 @input_error
@@ -55,13 +58,40 @@ def delete_contact(book: AddressBook, contact_data: list):
 
 
 @input_error
-def change_contact(book: AddressBook, contact_data: list[str]) -> str:
-    name, phone = contact_data
+def add_phone(book: AddressBook) -> str:
+    name = input("Enter contact's name >>> ")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
+    phone = input("Enter phone number:")
     contact.add_phone(phone)
-    return "Contact updated."
+    return f"Phone {phone} added for {name}."
+
+
+@input_error
+def edit_phone(book: AddressBook):
+    """Edit contact's phone number"""
+    try:
+        name = input("Enter contact's name  >>> ")
+        contact = book.find(name)
+        if not contact:
+            raise ValueError(f"Contact with name [{name}] not found.")
+
+        header = ["id", "phone"]
+        render_table(
+            [{"id": index, "phone": phone} for index, phone in enumerate(contact.phones)],
+            keys=header,
+            title=f"{name}'s phones:",
+        )
+
+        id = int(input("Enter phone id to edit  >>> "))
+        replaced_phone = contact.phones[id]
+        new_phone = prompt("Enter new phone number  >>> ", default=replaced_phone.value)
+        contact.add_phone(new_phone)
+        del contact.phones[id]
+        return f"Phone number updated for {name}"
+    except IndexError:
+        raise IndexError(f"Phone doesn't exist.")
 
 
 @input_error
@@ -103,10 +133,10 @@ def birthdays(book: AddressBook):
 
 @input_error
 def add_note():
-    title = input("Please provide the note title >>> ")
+    title = input("Enter note's title >>> ")
     note = Note(title)
 
-    description = input("Please provide the note description >>> ")
+    description = input("Enter note's description >>> ")
     if description:
         note.description = description
 
