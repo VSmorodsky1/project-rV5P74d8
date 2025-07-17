@@ -41,9 +41,7 @@ class AddressBook(UserList):
             list[Record]|None: list of contacts
         """
         matched_contacts = [
-            contact
-            for contact in self.data
-            if name.lower() in contact.name.value.lower()
+            contact for contact in self.data if name.lower() in contact.name.value.lower()
         ]
         return matched_contacts
 
@@ -101,9 +99,7 @@ class AddressBook(UserList):
                 {
                     "name": record.name.value,
                     "birthday": record.birthday.value,
-                    "congratulation_date": birthday_congratulation_date.strftime(
-                        "%d.%m.%Y"
-                    ),
+                    "congratulation_date": birthday_congratulation_date.strftime("%d.%m.%Y"),
                 }
             )
         return birthdays_on_week
