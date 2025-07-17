@@ -46,7 +46,7 @@ def edit_phone(book: AddressBook):
 @input_error
 def show_phone(book: AddressBook) -> str:
     """Show contact's phone"""
-    name = input("Enter contact full or partial name to find >>> ")
+    name = prompt("Enter contact full or partial name to find >>> ")
     contacts = book.find_matched(name)
 
     if len(contacts) == 0:
