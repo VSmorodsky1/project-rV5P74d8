@@ -6,12 +6,12 @@ from render_table import render_table
 
 @input_error
 def add_birthday(book: AddressBook) -> str:
-    name = input("Enter contact's name >>> ")
+    name = input("Enter contact's name >>> ").strip()
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
 
-    birthday = input("Enter contact's birthday (DD.MM.YYYY) >>> ")
+    birthday = input("Enter contact's birthday (DD.MM.YYYY) >>> ").strip()
     contact.add_birthday(birthday)
     return f"Birthday for {name} set to {birthday}."
 
@@ -19,7 +19,7 @@ def add_birthday(book: AddressBook) -> str:
 @input_error
 def show_birthday(book: AddressBook) -> str:
     """Show contact's birthday"""
-    name = prompt("Enter contact full or partial name to find >>> ")
+    name = prompt("Enter contact full or partial name to find >>> ").strip()
     contacts = book.find_matched(name)
 
     if len(contacts) == 0:
