@@ -2,7 +2,6 @@ from prompt_toolkit import prompt
 from colorama import Fore, init
 
 from decorators import input_error
-from validations import validate_phone
 from models.address_book import AddressBook
 from models.phone import Phone
 from models.record import Record
@@ -52,7 +51,7 @@ def add_contact(book: AddressBook) -> str:
 
 @input_error
 def find_contact(book: AddressBook):
-    name = input("Enter contact full or partial name to find >>> ")
+    name = input("Enter contact name >>> ")
     contacts = book.find_matched(name)
     if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
@@ -73,10 +72,15 @@ def find_contact_by_phone(book: AddressBook):
 
 
 @input_error
-def delete_contact(book: AddressBook, contact_data: list):
-    name = contact_data[0]
+def delete_contact(book: AddressBook):
+    name = input("Enter contact name >>> ")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
+    confirm = (
+        input(f"Are you sure you want to delete '{contact.name.value}'? (y/n): ").strip().lower()
+    )
+    if confirm not in ["yes", "y"]:
+        return "Deletion cancelled."
     book.delete_record(contact.name.value)
     return f"Contact {contact.name.value} is removed."
