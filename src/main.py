@@ -43,13 +43,13 @@ def main():
                 case "edit_phone":
                     print(edit_phone(book))
                 case "delete":
-                    print(delete_contact(book, args))
+                    print(delete_contact(book))
                 case "phone":
                     print(show_phone(book))
                 case "all":
                     show_all(book)
-                case "add-birthday":
-                    print(add_birthday(book, args))
+                case "add_birthday":
+                    print(add_birthday(book))
                 case "show-birthday":
                     print(show_birthday(book, args))
                 case "birthdays":
