@@ -1,6 +1,7 @@
 from models.name import Name
 from models.phone import Phone
 from models.birthday import Birthday
+from models.address import Address
 from models.email import Email
 
 class Record:
@@ -14,6 +15,7 @@ class Record:
         self.name = Name(name)
         self.phones: list[Phone] = []
         self.birthday: Birthday = None
+        self.address: Address = None
         self.email: Email = None
         self.__contact_id = Record.record_id
         Record.record_id += 1
@@ -60,8 +62,18 @@ class Record:
         """
         self.birthday = Birthday(birthday)
 
+    def add_address(self, address: str) -> None:
+        """
+        Add contact's address.
+        """
+        self.address = Address(address)
+
     def __str__(self):
-        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, phones: {'; '.join(str(p) for p in self.phones)}"
+
+        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, address: {self.address}, phones: {'; '.join(str(p) for p in self.phones)}"
 
     def __repr__(self):
-        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, phones: {'; '.join(str(p) for p in self.phones)}"
+        return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, address: {self.address}, phones: {'; '.join(str(p) for p in self.phones)}"
+      
+
+   
