@@ -38,12 +38,12 @@ def main():
                     print(user_hello())
                 case "add":
                     print(add_contact(book, args))
+                case "find_contact":
+                    find_contact(book)
                 case "add_phone":
                     print(add_phone(book))
                 case "edit_phone":
                     print(edit_phone(book))
-                case "find":
-                    print(find_contact(book, args))
                 case "delete":
                     print(delete_contact(book, args))
                 case "phone":

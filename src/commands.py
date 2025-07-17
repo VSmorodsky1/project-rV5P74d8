@@ -37,12 +37,14 @@ def add_contact(book: AddressBook, contact_data: list[str]) -> str:
 
 
 @input_error
-def find_contact(book: AddressBook, contact_data: list):
-    name = contact_data[0]
-    contact = book.find(name)
-    if not contact:
+def find_contact(book: AddressBook):
+    name = input("Enter contact full or partial name to find >>> ")
+    contacts = book.find_matched(name)
+    if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
-    return contact
+    header = ["name", "phones", "birthday"]
+    render_table(contacts, keys=header, title=f"Found contacts:")
+    return
 
 
 @input_error
