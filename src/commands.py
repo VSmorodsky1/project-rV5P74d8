@@ -1,3 +1,5 @@
+from prompt_toolkit import prompt
+
 from decorators import input_error
 from models.address_book import AddressBook
 from models.record import Record
@@ -53,7 +55,7 @@ def delete_contact(book: AddressBook, contact_data: list):
 
 @input_error
 def add_phone(book: AddressBook) -> str:
-    name = input("Enter contact's name:")
+    name = input("Enter contact's name >>> ")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
@@ -66,7 +68,7 @@ def add_phone(book: AddressBook) -> str:
 def edit_phone(book: AddressBook):
     """Edit contact's phone number"""
     try:
-        name = input("Enter contact's name:")
+        name = input("Enter contact's name  >>> ")
         contact = book.find(name)
         if not contact:
             raise ValueError(f"Contact with name [{name}] not found.")
@@ -78,10 +80,11 @@ def edit_phone(book: AddressBook):
             title=f"{name}'s phones:",
         )
 
-        id = int(input("Enter phone id to edit:"))
-        new_phone = input("Enter new phone number:")
-        contact.delete_phone(contact.phones[id].value)
+        id = int(input("Enter phone id to edit  >>> "))
+        replaced_phone = contact.phones[id]
+        new_phone = prompt("Enter new phone number  >>> ", default=replaced_phone.value)
         contact.add_phone(new_phone)
+        del contact.phones[id]
         return f"Phone number updated for {name}"
     except IndexError:
         raise IndexError(f"Phone doesn't exist.")

@@ -26,7 +26,7 @@ def main():
     print("Welcome to Assistant Bot!")
     while True:
         try:
-            user_input = input("Enter a command:").strip().lower()
+            user_input = input("Enter a command >>> ").strip().lower()
             command, *args = parse_input(user_input)
             if command in ["exit", "close"]:
                 print(f"{Fore.GREEN}Goodbye!")
