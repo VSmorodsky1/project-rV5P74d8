@@ -103,10 +103,10 @@ def birthdays(book: AddressBook):
 
 @input_error
 def add_note():
-    title = input("Please provide the note title >>> ")
+    title = input("Enter note's title >>> ")
     note = Note(title)
 
-    description = input("Please provide the note description >>> ")
+    description = input("Enter note's description >>> ")
     if description:
         note.description = description
 
