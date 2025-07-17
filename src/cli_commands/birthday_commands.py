@@ -1,15 +1,19 @@
 from decorators import input_error
 from models.address_book import AddressBook
+from prompt_toolkit import prompt
+from render_table import render_table
 
 
 @input_error
-def add_birthday(book: AddressBook, contact_data: list) -> str:
-    name, birthday = contact_data
+def add_birthday(book: AddressBook) -> str:
+    name = input("Enter contact's name >>> ")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
+
+    birthday = input("Enter contact's birthday (DD.MM.YYYY) >>> ")
     contact.add_birthday(birthday)
-    return "Contact's birthday added."
+    return f"Birthday for {name} set to {birthday}."
 
 
 @input_error
