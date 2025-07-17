@@ -149,10 +149,10 @@ def add_note():
 
 @input_error
 def add_address(book: AddressBook) -> str:
-    name = input("Enter contact's name >>>")
+    name = input("Enter contact's name >>> ")
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
-    address = input("Enter contact's address >>>")
+    address = input("Enter contact's address >>> ")
     contact.add_address(address)
     return f"Address for {name} added."
