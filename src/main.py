@@ -37,7 +37,7 @@ def main():
                 case "add":
                     print(add_contact(book))
                 case "find_contact":
-                    find_contact(book)
+                    print(find_contact(book))
                 case "add_phone":
                     print(add_phone(book))
                 case "edit_phone":

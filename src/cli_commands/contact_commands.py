@@ -25,12 +25,12 @@ def show_all(book: AddressBook) -> str:
 @input_error
 def add_contact(book: AddressBook) -> str:
     name = prompt("Enter contact name >>> ")
-    record = book.find(name)
+    contact = book.find(name)
     message = "Contact updated."
 
-    if not record:
-        record = Record(name)
-        book.add_record(record)
+    if not contact:
+        contact = Record(name)
+        book.add_record(contact)
         message = "Contact added."
 
     phones = prompt("Enter phone numbers, use ',' like delimiter >>> ").strip()
@@ -40,7 +40,7 @@ def add_contact(book: AddressBook) -> str:
 
         for phone in phones:
             try:
-                record.add_phone(phone.strip())
+                contact.add_phone(phone.strip())
                 print(f"{Fore.GREEN}Added phone: {phone}")
             except Exception as e:
                 print(f"{Fore.RED}{e}")
