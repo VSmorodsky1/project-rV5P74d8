@@ -2,25 +2,19 @@ import sys
 
 from colorama import Fore, init
 
-from commands import (
-    add_birthday,
+from utils import parse_input
+from cli_commands.contact_commands import (
     add_contact,
-    birthdays,
-    add_phone,
     delete_contact,
     find_contact,
     show_all,
-    show_birthday,
-    show_phone,
     user_hello,
-    edit_phone,
-    add_note,
-    add_address,
-    add_email,
 )
-from models.address_book import AddressBook
-from utils import parse_input
-
+from cli_commands.phone_commands import show_phone, add_phone, edit_phone
+from cli_commands.note_commands import add_note
+from cli_commands.address_commands import add_address
+from cli_commands.email_commands import add_email
+from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
 from address_book_data_management import load_data, save_data
 
 init(autoreset=True)
