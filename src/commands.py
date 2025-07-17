@@ -1,11 +1,15 @@
 from prompt_toolkit import prompt
 from rich.console import Console
+from colorama import Fore, init
 
 from decorators import input_error
 from render_table import render_table
 from models.address_book import AddressBook
 from models.record import Record
 from models.note import Note
+from exceptions import PhoneFormatError
+
+init(autoreset=True)
 
 
 def user_hello() -> str:
@@ -22,17 +26,28 @@ def show_all(book: AddressBook) -> str:
 
 
 @input_error
-def add_contact(book: AddressBook, contact_data: list[str]) -> str:
-    name = contact_data[0]
-    phone = contact_data[1] if len(contact_data) > 1 else None
+def add_contact(book: AddressBook) -> str:
+    name = prompt("Enter contact name >>> ")
     record = book.find(name)
     message = "Contact updated."
+
     if not record:
         record = Record(name)
         book.add_record(record)
         message = "Contact added."
-    if phone:
-        record.add_phone(phone)
+
+    phones = prompt("Enter phone numbers, use ',' like delimiter >>> ").strip()
+
+    if phones:
+        phones = phones.split(",")
+
+        for phone in phones:
+            try:
+                record.add_phone(phone.strip())
+                print(f"{Fore.GREEN}Added phone: {phone}")
+            except Exception as e:
+                print(f"{Fore.RED}{e}")
+
     return message
 
 
@@ -79,7 +94,10 @@ def edit_phone(book: AddressBook):
 
         header = ["id", "phone"]
         render_table(
-            [{"id": index, "phone": phone} for index, phone in enumerate(contact.phones)],
+            [
+                {"id": index, "phone": phone}
+                for index, phone in enumerate(contact.phones)
+            ],
             keys=header,
             title=f"{name}'s phones:",
         )
