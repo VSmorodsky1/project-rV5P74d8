@@ -73,7 +73,7 @@ class Record:
         """
         Add contact's email
         """
-        self.email = email
+        self.email = Email(email)
 
     def __str__(self):
 
