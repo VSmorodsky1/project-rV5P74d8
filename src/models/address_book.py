@@ -40,7 +40,9 @@ class AddressBook(UserList):
         Return:
             list[Record]|None: list of contacts
         """
-        matched_contacts = [contact for contact in self.data if name in contact.name.value]
+        matched_contacts = [
+            contact for contact in self.data if name.lower() in contact.name.value.lower()
+        ]
         return matched_contacts
 
     def find_by_contact_id(self, contact_id: int) -> Record | None:
