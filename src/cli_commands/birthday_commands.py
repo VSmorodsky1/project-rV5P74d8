@@ -13,12 +13,17 @@ def add_birthday(book: AddressBook, contact_data: list) -> str:
 
 
 @input_error
-def show_birthday(book: AddressBook, contact_data: list) -> str:
-    name = contact_data[0]
-    contact = book.find(name)
-    if not contact:
+def show_birthday(book: AddressBook) -> str:
+    """Show contact's birthday"""
+    name = prompt("Enter contact full or partial name to find >>> ")
+    contacts = book.find_matched(name)
+
+    if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
-    return f"Birthday for {name}: {contact.birthday.value}"
+
+    header = ["name", "birthday"]
+    render_table(contacts, keys=header, title="Found birthday:")
+    return ""
 
 
 @input_error
