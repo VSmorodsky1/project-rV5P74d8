@@ -36,7 +36,7 @@ def add_contact(book: AddressBook) -> str:
         book.add_record(record)
         message = "Contact added."
 
-    phones = prompt("Enter phone numbers, use ',' like delimiter >>> ")
+    phones = prompt("Enter phone numbers, use ',' like delimiter >>> ").strip()
 
     if phones:
         phones = phones.split(",")
@@ -47,7 +47,6 @@ def add_contact(book: AddressBook) -> str:
                 print(f"{Fore.GREEN}Added phone: {phone}")
             except Exception as e:
                 print(f"{Fore.RED}{e}")
-                continue
 
     return message
 
