@@ -64,20 +64,20 @@ class AddressBook(UserList):
                 self.data.remove(record)
                 return
 
-    def get_upcoming_birthdays(self):
+    def get_upcoming_birthdays(self, days_count: int = 7):
         """
         Get users with upcoming birthday (one week)
 
         Returns:
             list[dict[str, str]]: list of contacts with upcoming birthdays
         """
-        birthday_limit = timedelta(weeks=1)
-        birthdays_on_week = []
+        birthday_limit = timedelta(days=days_count)
+        upcoming_birthdays = []
         current_date = datetime.today().date()
-        for record in self.data:
-            if not record.birthday:
+        for contact in self.data:
+            if not contact.birthday:
                 continue
-            birthday_date = datetime.strptime(record.birthday.value, "%d.%m.%Y").date()
+            birthday_date = datetime.strptime(contact.birthday.value, "%d.%m.%Y").date()
             birthday_congratulation_date = datetime(
                 year=current_date.year, month=birthday_date.month, day=birthday_date.day
             ).date()
@@ -86,20 +86,22 @@ class AddressBook(UserList):
                 month=birthday_date.month,
                 day=birthday_date.day,
             ).date()
+
             if birthday_congratulation_date < current_date:
                 if birthday_next_year - current_date > birthday_limit:
                     continue
                 birthday_congratulation_date = birthday_next_year
-            match birthday_congratulation_date.weekday():
-                case 5:
-                    birthday_congratulation_date += timedelta(days=2)
-                case 6:
-                    birthday_congratulation_date += timedelta(days=1)
-            birthdays_on_week.append(
+
+            if birthday_congratulation_date - current_date > birthday_limit:
+                continue
+            upcoming_birthdays.append(
                 {
-                    "name": record.name.value,
-                    "birthday": record.birthday.value,
-                    "congratulation_date": birthday_congratulation_date.strftime("%d.%m.%Y"),
+                    "id": contact.contact_id,
+                    "name": contact.name.value,
+                    "congratulation_date": birthday_congratulation_date,
                 }
             )
-        return birthdays_on_week
+        upcoming_birthdays = sorted(
+            upcoming_birthdays, key=lambda item: item["congratulation_date"]
+        )
+        return upcoming_birthdays

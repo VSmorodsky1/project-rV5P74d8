@@ -5,7 +5,7 @@ from models.address_book import AddressBook
 DATA_FILE = Path("contacts.pkl")
 
 
-def save_data(book, filename=DATA_FILE):
+def save_data(book: AddressBook, filename=DATA_FILE):
     """
     Save contact records to disk
     """
