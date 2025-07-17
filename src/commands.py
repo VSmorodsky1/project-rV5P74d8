@@ -16,7 +16,7 @@ def user_hello() -> str:
 def show_all(book: AddressBook) -> str:
     if not book.data:
         return "Address book is empty."
-    headers = ["name", "birthday", "phones"]
+    headers = ["name", "birthday", "phones", "address"]
     records = list(book.data)
     render_table(records, keys=headers, title="📒 Address Book")
 
@@ -145,3 +145,14 @@ def add_note():
     console.print("\nYour notes:\n", note_card)
     console.export_text()
     return ""
+
+
+@input_error
+def add_address(book: AddressBook) -> str:
+    name = input("Enter contact's name >>>")
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f"Contact with name [{name}] not found.")
+    address = input("Enter contact's address >>>")
+    contact.add_address(address)
+    return f"Address for {name} added."

@@ -1,6 +1,7 @@
 from models.field import Field
 from validations import required
 
+
 class Address(Field):
     @required
     def __init__(self, value: str):
