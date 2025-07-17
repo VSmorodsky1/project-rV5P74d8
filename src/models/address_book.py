@@ -31,6 +31,13 @@ class AddressBook(UserList):
             if record.name.value.lower() == name.lower():
                 return record
 
+    def find_by_phone(self, phone: str) -> Record | None:
+        """Find contact by phone in the book"""
+        matched_contacts = [
+            contact for contact in self.data if any(phone == p.value for p in contact.phones)
+        ]
+        return matched_contacts
+
     def find_matched(self, name: str) -> list[Record] | None:
         """
         Find contacts with matched name
