@@ -1,9 +1,11 @@
 from prompt_toolkit import prompt
+from colorama import Fore, init
 
-from exceptions import PhoneFormatError
 from decorators import input_error
 from models.address_book import AddressBook
 from render_table import render_table
+
+init(autoreset=True)
 
 
 @input_error
@@ -12,9 +14,18 @@ def add_phone(book: AddressBook) -> str:
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
-    phone = input("Enter phone number:")
-    contact.add_phone(phone)
-    return f"Phone {phone} added for {name}."
+    phones = prompt("Enter phone numbers, use ',' like delimiter >>> ").strip()
+    if phones:
+        phones = phones.split(",")
+        for phone in phones:
+            try:
+                phone = phone.strip()
+                contact.add_phone(phone)
+                print(f"{Fore.GREEN}Added phone: {phone}")
+            except Exception as e:
+                print(f"{Fore.RED}Error occurs on phone value:{phone}")
+                print(f"{Fore.RED}{e}")
+    return f"Added phones for contact: {name}"
 
 
 @input_error
