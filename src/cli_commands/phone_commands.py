@@ -44,9 +44,14 @@ def edit_phone(book: AddressBook):
 
 
 @input_error
-def show_phone(book: AddressBook, contact_data: list) -> str:
-    name = contact_data[0]
-    contact = book.find(name)
-    if not contact:
+def show_phone(book: AddressBook) -> str:
+    """Show contact's phone"""
+    name = input("Enter contact full or partial name to find >>> ")
+    contacts = book.find_matched(name)
+
+    if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
-    return f"{name.upper()}: {'; '.join(str(p) for p in contact.phones)}"
+
+    header = ["name", "phones"]
+    render_table(contacts, keys=header, title=f"Found phones:")
+    return ""
