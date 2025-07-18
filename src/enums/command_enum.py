@@ -14,6 +14,7 @@ class CLICommand(Enum):
     ADD_BIRTHDAY = "add_birthday"
     SHOW_BIRTHDAY = "show_birthday"
     BIRTHDAYS = "birthdays"
+    SHOW_NOTES = "show_notes"
     ADD_NOTE = "add_note"
     ADD_ADDRESS = "add_address"
     ADD_EMAIL = "add_email"
