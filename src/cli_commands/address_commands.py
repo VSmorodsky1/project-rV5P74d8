@@ -21,7 +21,8 @@ def edit_address(book: AddressBook) -> str:
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
-    address = prompt("Edit your address  >>> ", default=contact.address.value)
+    contact_address = contact.address.value if contact.address else ""
+    address = prompt("Edit your address  >>> ", default=contact_address)
     contact.add_address(address)
     return f"Address for {name} updated."
 
@@ -32,9 +33,8 @@ def delete_address(book: AddressBook) -> str:
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
-    confirm = (
-        input(f"Are you sure you want to delete '{contact.name.value}'? (y/n): ").strip().lower()
-    )
+    address = contact.address.value if contact.address else ""
+    confirm = input(f"Are you sure you want to delete address '{address}'? (y/n): ").strip().lower()
     if confirm not in ["yes", "y"]:
         return "Deletion cancelled."
     contact.delete_address()
