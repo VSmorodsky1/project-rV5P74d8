@@ -26,3 +26,19 @@ def edit_email(book: AddressBook) -> str:
     new_email = prompt("Edit your email >>> ", default=contact_email)
     contact.add_email(new_email)
     return f"Email for {name} updated."
+
+
+@input_error
+def delete_email(book: AddressBook) -> str:
+    name = input("Enter contact's name >>> ").strip()
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f"Contact with name [{name}] not found.")
+
+    email = contact.email.value if contact.email else ""
+    confirm = input(f"Are you sure you want to delete email '{email}'? (y/n): ").strip().lower()
+    if confirm not in ["yes", "y"]:
+        return "Deletion cancelled."
+
+    contact.delete_email()
+    return f"Email for contact [{name}] is deleted."
