@@ -14,7 +14,7 @@ from cli_commands.contact_commands import (
 )
 from cli_commands.phone_commands import show_phone, add_phone, edit_phone, delete_phone
 from cli_commands.note_commands import add_note
-from cli_commands.address_commands import add_address
+from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
 from address_book_data_management import load_data, save_data
@@ -48,6 +48,8 @@ def main():
                     print(edit_phone(book))
                 case "edit_name":
                     print(edit_name(book))
+                case "edit_address":
+                    print(edit_address(book))
                 case "delete":
                     print(delete_contact(book))
                 case "phone":
@@ -56,8 +58,8 @@ def main():
                     show_all(book)
                 case "add_birthday":
                     print(add_birthday(book))
-                case "show-birthday":
-                    print(show_birthday(book, args))
+                case "show_birthday":
+                    print(show_birthday(book))
                 case "birthdays":
                     print(birthdays(book))
                 case "add_note":
@@ -66,6 +68,8 @@ def main():
                     print(add_address(book))
                 case "add_email":
                     print(add_email(book))
+                case "delete_address":
+                    print(delete_address(book))
                 case "delete_phone":
                     print(delete_phone(book))
                 case _:
