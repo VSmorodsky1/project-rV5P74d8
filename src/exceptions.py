@@ -28,3 +28,11 @@ class EmailFormatError(Exception):
     def __init__(self, message="Email address format is incorrect."):
         self.message = message
         super().__init__(self.message)
+
+
+class TagFormatError(Exception):
+    """Exception raised for errors in the tag format."""
+
+    def __init__(self, message="Tag format is incorrect."):
+        self.message = message
+        super().__init__(self.message)

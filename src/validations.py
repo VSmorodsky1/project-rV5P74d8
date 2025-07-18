@@ -2,7 +2,13 @@ from functools import wraps
 import re
 from datetime import datetime
 
-from exceptions import PhoneFormatError, RequiredValueError, DateFormatError, EmailFormatError
+from exceptions import (
+    PhoneFormatError,
+    RequiredValueError,
+    DateFormatError,
+    EmailFormatError,
+    TagFormatError,
+)
 
 
 def validate_phone(func):
@@ -64,6 +70,22 @@ def validate_email(func):
         email_format = r"^[\w\.-]+@[\w\.-]+\.\w+$"
         if not re.fullmatch(email_format, value):
             raise EmailFormatError(f"Invalid email address: {value}")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def validate_tag(func):
+    """
+    Validate tag format
+    """
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        value = kwargs.get("value") or (args[1] if len(args) > 1 else None)
+
+        if not re.fullmatch(r"^[A-Za-z0-9_]+$", value):
+            raise TagFormatError(f"Invalid tag: {value}")
         return func(*args, **kwargs)
 
     return wrapper
