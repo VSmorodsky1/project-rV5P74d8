@@ -14,22 +14,22 @@ from cli_commands.contact_commands import (
     edit_name,
 )
 from cli_commands.phone_commands import show_phone, add_phone, edit_phone, delete_phone
-from cli_commands.note_commands import show_notes, add_note
+from cli_commands.note_commands import add_note
 from cli_commands.address_commands import add_address, edit_address, delete_address
-from cli_commands.email_commands import add_email, edit_email
+from cli_commands.email_commands import add_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
 from address_book_data_management import load_data, save_data
 from utils.command_completer import get_commands_list
 from enums.command_enum import CLICommand
-from models.note_book import NoteBook
+from cli_commands.help import help
 
 init(autoreset=True)
 
 
 def main():
     book = load_data()
-    noteBook = NoteBook()
     print("Welcome to Assistant Bot!")
+    help()
     while True:
         try:
             user_input = (
@@ -75,14 +75,12 @@ def main():
                     print(show_birthday(book))
                 case CLICommand.BIRTHDAYS.value:
                     print(birthdays(book))
-                case CLICommand.SHOW_NOTES.value:
-                    print(show_notes(noteBook))
                 case CLICommand.ADD_NOTE.value:
-                    print(add_note(noteBook))
+                    print(add_note())
                 case CLICommand.ADD_EMAIL.value:
                     print(add_email(book))
-                case CLICommand.EDIT_EMAIL.value:
-                    print(edit_email(book))
+                case CLICommand.HELP.value:
+                    print(help())
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
         except TypeError as error:
