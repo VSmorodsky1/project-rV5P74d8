@@ -33,7 +33,6 @@ commands_with_description = [
     {"command_name": CLICommand.DELETE_PHONE.value, "description": "Delete contact's phone."},
     {"command_name": CLICommand.ADD_ADDRESS.value, "description": "Add contact's address."},
     {"command_name": CLICommand.EDIT_ADDRESS.value, "description": "Edit contact's address."},
-    {"command_name": CLICommand.DELETE_CONTACT.value, "description": "Delete contact's address."},
     {"command_name": CLICommand.ADD_BIRTHDAY.value, "description": "Add contact's birthday."},
     {"command_name": CLICommand.ADD_EMAIL.value, "description": "Add contact's email."},
     {"command_name": CLICommand.EDIT_EMAIL.value, "description": "Edit contact's email."},
