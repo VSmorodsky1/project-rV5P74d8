@@ -1,8 +1,7 @@
-from rich.console import Console
-from rich.align import Align
 from prompt_toolkit import prompt
 
 from decorators import input_error
+from render_notes_list import render_notes_list
 from models.note import Note
 from models.note_book import NoteBook
 
@@ -13,12 +12,7 @@ def show_notes(noteBook: NoteBook):
         return "Note book is empty."
 
     notes = list(noteBook.data)
-
-    console = Console(record=True)
-    console.print(Align("\n[b magenta]🗒 Notes book:[/]\n", align="center"))
-    for note in notes:
-        console.print(note.display(), "\n")
-    console.export_text()
+    render_notes_list(notes)
     return ""
 
 
@@ -31,9 +25,19 @@ def add_note(noteBook: NoteBook):
     description = prompt("Enter note's description >>> ")
     if description:
         note.description = description
+    render_notes_list([note], title="Your notes")
+    return ""
 
-    note_card = note.display()
-    console = Console(record=True)
-    console.print("\nYour notes:\n", note_card)
-    console.export_text()
+
+@input_error
+def find_note(noteBook: NoteBook):
+    title = prompt("Enter note's title >>> ")
+
+    notes = noteBook.find_matched_by_title(title)
+
+    if len(notes) == 0:
+        raise ValueError(f"Note with title [{title}] not found.")
+
+    title = f"Notes which include the '{title}'"
+    render_notes_list(notes, title=title)
     return ""

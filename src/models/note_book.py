@@ -11,11 +11,16 @@ class NoteBook(UserList):
 
         self.data.append(note)
 
-    def find_by_note_id(self, id: int) -> Note | None:
-        """Find note by id in the NoteBook"""
+    def find_matched_by_title(self, title: str) -> list[Note] | None:
+        """Find note with matched name"""
+        matched_notes = [note for note in self.data if title.lower() in note.title.lower()]
+        return matched_notes
+
+    def find_by_title(self, title: int) -> Note | None:
+        """Find note by title in the NoteBook"""
 
         for note in self.data:
-            if note.id.value == id:
+            if note.title == title:
                 return note
 
     def remove_by_note_id(self, id: int) -> None:
