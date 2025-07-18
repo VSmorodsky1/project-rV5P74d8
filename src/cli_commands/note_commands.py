@@ -5,9 +5,10 @@ from models.note import Note
 
 
 @input_error
-def add_note():
+def add_note(noteBook: NoteBook):
     title = input("Enter note's title >>> ")
     note = Note(title)
+    noteBook.add_note(note)
 
     description = input("Enter note's description >>> ")
     if description:

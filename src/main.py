@@ -27,6 +27,7 @@ init(autoreset=True)
 
 def main():
     book = load_data()
+    noteBook = NoteBook()
     print("Welcome to Assistant Bot!")
     while True:
         try:
@@ -74,7 +75,7 @@ def main():
                 case CLICommand.BIRTHDAYS.value:
                     print(birthdays(book))
                 case CLICommand.ADD_NOTE.value:
-                    print(add_note())
+                    print(add_note(noteBook))
                 case CLICommand.ADD_EMAIL.value:
                     print(add_email(book))
                 case _:
