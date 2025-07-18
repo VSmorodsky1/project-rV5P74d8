@@ -53,8 +53,8 @@ def main():
                     show_all(book)
                 case "add_birthday":
                     print(add_birthday(book))
-                case "show-birthday":
-                    print(show_birthday(book, args))
+                case "show_birthday":
+                    print(show_birthday(book))
                 case "birthdays":
                     print(birthdays(book))
                 case "add_note":
