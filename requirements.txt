@@ -15,6 +15,7 @@ platformdirs==4.3.8
 pre_commit==4.2.0
 prompt_toolkit==3.0.51
 Pygments==2.19.2
+python-dotenv==1.1.1
 PyYAML==6.0.2
 rich==14.0.0
 ruff==0.12.3
