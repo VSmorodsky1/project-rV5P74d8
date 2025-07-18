@@ -21,6 +21,7 @@ from cli_commands.birthday_commands import add_birthday, birthdays, show_birthda
 from address_book_data_management import load_data, save_data
 from utils.command_completer import get_commands_list
 from enums.command_enum import CLICommand
+from cli_commands.help import help
 from models.note_book import NoteBook
 
 init(autoreset=True)
@@ -30,6 +31,7 @@ def main():
     book = load_data()
     noteBook = NoteBook()
     print("Welcome to Assistant Bot!")
+    help()
     while True:
         try:
             user_input = (
