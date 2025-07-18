@@ -66,6 +66,18 @@ class Record:
         """
         self.email = Email(email)
 
+    def edit_email(self, new_email: str) -> None:
+        """
+        Edit contact's email
+        """
+        self.email = Email(new_email)
+
+    def delete_email(self) -> None:
+        """
+        Delete contact's email
+        """
+        self.email = None
+
     def edit_name(self, new_name: str) -> None:
         """
         Edit contact's name
@@ -73,7 +85,9 @@ class Record:
         self.name = Name(new_name)
 
     def delete_address(self) -> None:
-        """Delete contact's address"""
+        """
+        Delete contact's address
+        """
         self.address = None
 
     def __str__(self):
