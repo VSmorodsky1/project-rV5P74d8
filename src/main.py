@@ -18,18 +18,20 @@ from cli_commands.note_commands import show_notes, add_note, find_note, update_n
 from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email, edit_email, delete_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
-from address_book_data_management import load_data, save_data
+from save_data_management import load_data, save_data
 from utils.command_completer import get_commands_list
 from enums.command_enum import CLICommand
+from enums.saving_data_file_enum import DataFiles
 from cli_commands.help import help
 from models.note_book import NoteBook
+from models.address_book import AddressBook
 
 init(autoreset=True)
 
 
 def main():
-    book = load_data()
-    noteBook = NoteBook()
+    book = load_data(DataFiles.ADDRESS_BOOK.value, AddressBook)
+    noteBook = load_data(DataFiles.NOTE_BOOK.value, NoteBook)
     print("Welcome to Assistant Bot!")
     help()
     while True:
@@ -101,7 +103,8 @@ def main():
             print(f"{Fore.GREEN}Goodbye!")
             sys.exit(0)
         finally:
-            save_data(book)
+            save_data(DataFiles.ADDRESS_BOOK.value, book)
+            save_data(DataFiles.NOTE_BOOK.value, noteBook)
 
 
 if __name__ == "__main__":
