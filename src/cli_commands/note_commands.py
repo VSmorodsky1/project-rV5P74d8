@@ -1,3 +1,5 @@
+from typing import List
+
 from prompt_toolkit import prompt
 from rich import print
 
@@ -13,6 +15,24 @@ def find_matched_notes(noteBook: NoteBook, input_text: str = "Enter note's title
     if not notes:
         raise ValueError(f"Note with title [{title}] not found.")
     return (notes, title)
+
+
+def render_not_list_by_title(notes: NoteBook, title: str, isNumbered: bool = False):
+    list_title = f"Notes which include the '{title}'"
+    render_notes_list(notes, title=list_title, isNumbered=isNumbered)
+
+
+def choose_note(notes: List[Note], title: str, action: str) -> Note:
+
+    if len(notes) == 1:
+        return notes[0]
+
+    render_not_list_by_title(notes, title, isNumbered=True)
+
+    prompt_text = f"\nEnter number of note which you want to {action} >>> "
+    user_number = prompt(prompt_text)
+    idx = int(user_number) - 1
+    return notes[idx]
 
 
 @input_error
@@ -42,8 +62,7 @@ def add_note(noteBook: NoteBook):
 def find_note(noteBook: NoteBook):
     notes, title = find_matched_notes(noteBook)
 
-    list_title = f"Notes which include the '{title}'"
-    render_notes_list(notes, title=list_title)
+    render_not_list_by_title(notes, title)
     return ""
 
 
@@ -53,13 +72,7 @@ def update_note(noteBook: NoteBook):
         noteBook, input_text="Enter note's title which you want to update >>> "
     )
 
-    if len(notes) == 1:
-        note = notes[0]
-    elif len(notes) > 1:
-        render_notes_list(notes, title=title, isNumbered=True)
-        user_number = prompt("\nEnter numder of note which you want to update  >>> ")
-        idx = int(user_number) - 1
-        note = notes[idx]
+    note = choose_note(notes, title, "update")
 
     new_title = prompt("\nEdit note title >>> ", default=note.title)
     note.title = new_title
@@ -69,3 +82,20 @@ def update_note(noteBook: NoteBook):
 
     render_notes_list([note], title="Note updated")
     return ""
+
+
+@input_error
+def delete_note(noteBook: NoteBook):
+    notes, title = find_matched_notes(
+        noteBook, input_text="Enter note's title which you want to delete >>> "
+    )
+
+    note = choose_note(notes, title, "delete")
+
+    confirm = (
+        prompt(f"Are you sure you want to delete note '{note.title}'? (y/n): ").strip().lower()
+    )
+    if confirm not in ["yes", "y"]:
+        return "Canceled deletion note."
+    noteBook.remove_by_title(note.title)
+    return f"Note {note.title} is deleted."
