@@ -16,7 +16,7 @@ class NoteBook(UserList):
         matched_notes = [note for note in self.data if title.lower() in note.title.lower()]
         return matched_notes
 
-    def find_by_title(self, title: int) -> Note | None:
+    def find_by_title(self, title: str) -> Note | None:
         """Find note by title in the NoteBook"""
 
         for note in self.data:

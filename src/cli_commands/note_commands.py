@@ -35,7 +35,7 @@ def find_note(noteBook: NoteBook):
 
     notes = noteBook.find_matched_by_title(title)
 
-    if len(notes) == 0:
+    if not notes:
         raise ValueError(f"Note with title [{title}] not found.")
 
     title = f"Notes which include the '{title}'"
