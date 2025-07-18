@@ -21,6 +21,7 @@ def show_all(book: AddressBook) -> str:
     headers = ["name", "birthday", "phones", "address", "email"]
     records = list(book.data)
     render_table(records, keys=headers, title="📒 Address Book")
+    return ""
 
 
 @input_error
@@ -57,7 +58,7 @@ def find_contact(book: AddressBook):
         raise ValueError(f"Contact with name [{name}] not found.")
     header = ["name", "phones", "birthday"]
     render_table(contacts, keys=header, title=f"Found contacts:")
-    return
+    return ""
 
 
 @input_error
