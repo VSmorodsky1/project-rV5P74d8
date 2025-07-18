@@ -1,11 +1,11 @@
 from prompt_toolkit import prompt
 from colorama import Fore, init
 
-from decorators import input_error
+from ui.decorators import input_error
+from ui.render_table import render_table
 from models.address_book import AddressBook
 from models.phone import Phone
 from models.record import Record
-from render_table import render_table
 
 init(autoreset=True)
 

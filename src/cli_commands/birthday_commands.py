@@ -1,7 +1,8 @@
-from decorators import input_error
-from models.address_book import AddressBook
 from prompt_toolkit import prompt
-from render_table import render_table
+
+from ui.decorators import input_error
+from ui.render_table import render_table
+from models.address_book import AddressBook
 
 
 @input_error
