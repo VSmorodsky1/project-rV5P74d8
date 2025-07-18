@@ -11,7 +11,7 @@ from cli_commands.contact_commands import (
     show_all,
     user_hello,
 )
-from cli_commands.phone_commands import show_phone, add_phone, edit_phone
+from cli_commands.phone_commands import show_phone, add_phone, edit_phone, delete_phone
 from cli_commands.note_commands import add_note
 from cli_commands.address_commands import add_address
 from cli_commands.email_commands import add_email
@@ -63,6 +63,8 @@ def main():
                     print(add_address(book))
                 case "add_email":
                     print(add_email(book))
+                case "delete_phone":
+                    print(delete_phone(book))
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
         except TypeError as error:
