@@ -22,7 +22,7 @@ def show_birthday(book: AddressBook) -> str:
     name = prompt("Enter contact full or partial name to find >>> ").strip()
     contacts = book.find_matched(name)
 
-    if len(contacts) == 0:
+    if not contacts:
         raise ValueError(f"Contact with name [{name}] not found.")
 
     header = ["name", "birthday"]
@@ -32,8 +32,13 @@ def show_birthday(book: AddressBook) -> str:
 
 @input_error
 def birthdays(book: AddressBook):
-    celebrating_contacts = ""
-    contacts = book.get_upcoming_birthdays()
-    for contact in contacts:
-        celebrating_contacts += f"Congratulation date for {contact.name} ({contact.birthday}): {contact.congratulation_date}\n"
-    return celebrating_contacts
+    upcoming_days_count = int(input("Enter upcoming days count  >>> "))
+    contacts = book.get_upcoming_birthdays(upcoming_days_count)
+    if not contacts:
+        return (
+            f"There are no contacts with upcoming birthday for nearest {upcoming_days_count} days."
+        )
+
+    header = ["name", "congratulation_date"]
+    render_table(contacts, keys=header, title=f"Upcoming birthdays:")
+    return ""
