@@ -1,4 +1,4 @@
-from render_table import render_table
+from ui.render_table import render_table
 
 from enums.command_enum import CLICommand
 
@@ -6,10 +6,6 @@ commands_with_description = [
     {
         "command_name": CLICommand.ADD_CONTACT.value,
         "description": "Create a contact with name and phones (optional, separated by comma) from the contact book.",
-    },
-    {
-        "command_name": CLICommand.DELETE_CONTACT.value,
-        "description": "Delete a contact from the contact book.",
     },
     {
         "command_name": CLICommand.FIND_CONTACT.value,
@@ -40,10 +36,8 @@ commands_with_description = [
     {"command_name": CLICommand.DELETE_CONTACT.value, "description": "Delete contact's address."},
     {"command_name": CLICommand.ADD_BIRTHDAY.value, "description": "Add contact's birthday."},
     {"command_name": CLICommand.ADD_EMAIL.value, "description": "Add contact's email."},
-    # {
-    #     "id": CLICommand.EDIT_EMAIL.value,
-    #     "description": "Edit contact's email."
-    # },
+    {"command_name": CLICommand.EDIT_EMAIL.value, "description": "Edit contact's email."},
+    {"command_name": CLICommand.DELETE_EMAIL.value, "description": "Delete contact's email."},
     {
         "command_name": CLICommand.SHOW_BIRTHDAY.value,
         "description": "Show all contacts birthday, matched by name partially or full.",
@@ -52,10 +46,11 @@ commands_with_description = [
         "command_name": CLICommand.BIRTHDAYS.value,
         "description": "Show upcoming contact birthdays within the specified number of days from today.",
     },
-    # {
-    #     "id": CLICommand.SHOW_NOTES.value,
-    #     "description": "Show notes."
-    # },
+    {
+        "command_name": CLICommand.FIND_NOTE.value,
+        "description": "Find notes by title, matching partially or fully.",
+    },
+    {"command_name": CLICommand.SHOW_NOTES.value, "description": "Show all notes."},
     {
         "command_name": CLICommand.ADD_NOTE.value,
         "description": "Add note with title and description.",

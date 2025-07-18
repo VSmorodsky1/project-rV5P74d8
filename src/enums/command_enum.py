@@ -27,3 +27,4 @@ class CLICommand(Enum):
     EDIT_ADDRESS = "edit_address"
     DELETE_ADDRESS = "delete_address"
     HELP = "help"
+    SHOW_NOTES = "show_notes"
