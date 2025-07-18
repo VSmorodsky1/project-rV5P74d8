@@ -28,7 +28,11 @@ def show_birthday(book: AddressBook, contact_data: list) -> str:
 def birthdays(book: AddressBook):
     upcoming_days_count = int(input("Enter upcoming days count  >>> "))
     contacts = book.get_upcoming_birthdays(upcoming_days_count)
+    if not contacts:
+        return (
+            f"There are no contacts with upcoming birthday for nearest {upcoming_days_count} days."
+        )
 
-    header = ["id", "name", "congratulation_date"]
+    header = ["name", "congratulation_date"]
     render_table(contacts, keys=header, title=f"Upcoming birthdays:")
     return ""
