@@ -30,13 +30,13 @@ from models.address_book import AddressBook
 init(autoreset=True)
 load_dotenv()
 
-ADDRESS_BOOK_NAME_FILE = os.getenv("ADDRESS_BOOK_NAME_FILE")
-NOTE_BOOK_NAME_FILE = os.getenv("NOTE_BOOK_NAME_FILE")
+ADDRESS_BOOK_FILE_NAME = os.getenv("ADDRESS_BOOK_FILE_NAME")
+NOTE_BOOK_FILE_NAME = os.getenv("NOTE_BOOK_FILE_NAME")
 
 
 def main():
-    book = load_data(ADDRESS_BOOK_NAME_FILE, AddressBook)
-    noteBook = load_data(NOTE_BOOK_NAME_FILE, NoteBook)
+    book = load_data(ADDRESS_BOOK_FILE_NAME, AddressBook)
+    noteBook = load_data(NOTE_BOOK_FILE_NAME, NoteBook)
     print("Welcome to Assistant Bot!")
     help()
     while True:
@@ -108,8 +108,8 @@ def main():
             print(f"{Fore.GREEN}Goodbye!")
             sys.exit(0)
         finally:
-            save_data(ADDRESS_BOOK_NAME_FILE, book)
-            save_data(NOTE_BOOK_NAME_FILE, noteBook)
+            save_data(ADDRESS_BOOK_FILE_NAME, book)
+            save_data(NOTE_BOOK_FILE_NAME, noteBook)
 
 
 if __name__ == "__main__":
