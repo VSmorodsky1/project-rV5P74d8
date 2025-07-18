@@ -1,7 +1,7 @@
 from prompt_toolkit import prompt
 
-from decorators import input_error
-from render_notes_list import render_notes_list
+from ui.decorators import input_error
+from ui.render_notes_list import render_notes_list
 from models.note import Note
 from models.note_book import NoteBook
 

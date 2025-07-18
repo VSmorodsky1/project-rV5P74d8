@@ -1,6 +1,6 @@
 from prompt_toolkit import prompt
 
-from decorators import input_error
+from ui.decorators import input_error
 from models.address_book import AddressBook
 
 
