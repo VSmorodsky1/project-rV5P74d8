@@ -1,8 +1,9 @@
 import sys
 
 from colorama import Fore, init
+from prompt_toolkit import prompt
 
-from utils import parse_input
+from utils.parse_input import parse_input
 from cli_commands.contact_commands import (
     add_contact,
     delete_contact,
@@ -17,6 +18,7 @@ from cli_commands.address_commands import add_address
 from cli_commands.email_commands import add_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
 from address_book_data_management import load_data, save_data
+from utils.command_completer import get_commands_list
 
 init(autoreset=True)
 
@@ -26,7 +28,9 @@ def main():
     print("Welcome to Assistant Bot!")
     while True:
         try:
-            user_input = input("Enter a command >>> ").strip().lower()
+            user_input = (
+                prompt("Enter a command >>> ", completer=get_commands_list()).strip().lower()
+            )
             command, *args = parse_input(user_input)
             if command in ["exit", "close"]:
                 print(f"{Fore.GREEN}Goodbye!")
@@ -53,7 +57,7 @@ def main():
                     show_all(book)
                 case "add_birthday":
                     print(add_birthday(book))
-                case "show-birthday":
+                case "show_birthday":
                     print(show_birthday(book, args))
                 case "birthdays":
                     print(birthdays(book))
