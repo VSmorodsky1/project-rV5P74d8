@@ -18,6 +18,7 @@ class CLICommand(Enum):
     ADD_NOTE = "add_note"
     ADD_ADDRESS = "add_address"
     ADD_EMAIL = "add_email"
+    EDIT_EMAIL = "edit_email"
     EXIT = "exit"
     CLOSE = "close"
     HELLO = "hello"
