@@ -2,15 +2,15 @@ from enum import Enum
 
 
 class CLICommand(Enum):
-    ADD_CONTACT = "add"
-    DELETE_CONTACT = "delete"
+    ADD_CONTACT = "create_contact"
+    DELETE_CONTACT = "delete_contact"
     FIND_CONTACT = "find_contact"
     FIND_CONTACT_BY_PHONE = "find_contact_by_phone"
     ADD_PHONE = "add_phone"
     EDIT_PHONE = "edit_phone"
     DELETE_PHONE = "delete_phone"
     SHOW_PHONE = "phone"
-    SHOW_ALL = "all"
+    SHOW_ALL = "show_all"
     ADD_BIRTHDAY = "add_birthday"
     SHOW_BIRTHDAY = "show_birthday"
     BIRTHDAYS = "birthdays"
@@ -20,3 +20,6 @@ class CLICommand(Enum):
     EXIT = "exit"
     CLOSE = "close"
     HELLO = "hello"
+    EDIT_NAME = "edit_name"
+    EDIT_ADDRESS = "edit_address"
+    DELETE_ADDRESS = "delete_address"
