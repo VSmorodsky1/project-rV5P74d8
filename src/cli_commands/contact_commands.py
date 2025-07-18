@@ -84,3 +84,14 @@ def delete_contact(book: AddressBook):
         return "Deletion cancelled."
     book.delete_record(contact.name.value)
     return f"Contact {contact.name.value} is removed."
+
+
+@input_error
+def edit_name(book: AddressBook) -> str:
+    name = input("Enter contact's name >>> ")
+    contact = book.find(name)
+    if not contact:
+        raise ValueError(f"Contact with name [{name}] not found.")
+    new_name = prompt("Enter new phone number  >>> ", default=name)
+    contact.edit_name(new_name)
+    return f"Contact's name changed from {name} to {new_name}."

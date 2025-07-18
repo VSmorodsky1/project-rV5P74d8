@@ -75,6 +75,12 @@ class Record:
         """
         self.email = Email(email)
 
+    def edit_name(self, new_name: str) -> None:
+        """
+        Edit contact's name
+        """
+        self.name = Name(new_name)
+
     def __str__(self):
 
         return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, address: {self.address}, phones: {'; '.join(str(p) for p in self.phones)}"
