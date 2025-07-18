@@ -1,4 +1,6 @@
 from rich.console import Console
+from rich.align import Align
+from prompt_toolkit import prompt
 
 from decorators import input_error
 from models.note import Note
@@ -13,7 +15,7 @@ def show_notes(noteBook: NoteBook):
     notes = list(noteBook.data)
 
     console = Console(record=True)
-    console.print("\n[b magenta][ali]Notes book:[/]")
+    console.print(Align("\n[b magenta]🗒 Notes book:[/]\n", align="center"))
     for note in notes:
         console.print(note.display(), "\n")
     console.export_text()
@@ -22,11 +24,11 @@ def show_notes(noteBook: NoteBook):
 
 @input_error
 def add_note(noteBook: NoteBook):
-    title = input("Enter note's title >>> ")
+    title = prompt("Enter note's title >>> ")
     note = Note(title)
     noteBook.add_note(note)
 
-    description = input("Enter note's description >>> ")
+    description = prompt("Enter note's description >>> ")
     if description:
         note.description = description
 
