@@ -66,12 +66,6 @@ class Record:
         """
         self.email = Email(email)
 
-    def edit_email(self, new_email: str) -> None:
-        """
-        Edit contact's email
-        """
-        self.email = Email(new_email)
-
     def delete_email(self) -> None:
         """
         Delete contact's email
