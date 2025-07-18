@@ -13,7 +13,7 @@ from cli_commands.contact_commands import (
 )
 from cli_commands.phone_commands import show_phone, add_phone, edit_phone
 from cli_commands.note_commands import add_note
-from cli_commands.address_commands import add_address
+from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
 from address_book_data_management import load_data, save_data
@@ -45,6 +45,8 @@ def main():
                     print(add_phone(book))
                 case "edit_phone":
                     print(edit_phone(book))
+                case "edit_address":
+                    print(edit_address(book))
                 case "delete":
                     print(delete_contact(book))
                 case "phone":
@@ -63,6 +65,8 @@ def main():
                     print(add_address(book))
                 case "add_email":
                     print(add_email(book))
+                case "delete_address":
+                    print(delete_address(book))
                 case _:
                     raise ValueError(f"Command [{command}] doesn't exist")
         except TypeError as error:

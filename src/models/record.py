@@ -75,6 +75,10 @@ class Record:
         """
         self.email = Email(email)
 
+    def delete_address(self) -> None:
+        """Delete contact's address"""
+        self.address = None
+
     def __str__(self):
 
         return f"Id: {self.contact_id}, Contact name: {self.name}, birthday: {self.birthday}, email: {self.email}, address: {self.address}, phones: {'; '.join(str(p) for p in self.phones)}"
