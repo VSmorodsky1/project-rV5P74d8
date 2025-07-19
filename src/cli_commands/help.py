@@ -5,6 +5,7 @@ from ui.render_table import render_table
 from enums.command_enum import CLICommand
 
 commands_with_description = [
+    {"command_name": CLICommand.HELP.value, "description": "Show list of available commands"},
     {
         "command_name": CLICommand.ADD_CONTACT.value,
         "description": "Create a contact with name and phones (optional, separated by comma) from the contact book.",
@@ -57,7 +58,6 @@ commands_with_description = [
         "command_name": CLICommand.ADD_NOTE.value,
         "description": "Add note with title and description.",
     },
-    {"command_name": CLICommand.HELP.value, "description": "Add note with title and description."},
 ]
 
 
