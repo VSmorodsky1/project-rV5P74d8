@@ -36,16 +36,14 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     return notes[idx]
 
 
-def add_note_tags(note: List[Note], tags: str, no_print: bool = False) -> Note:
+def add_note_tags(note: List[Note], tags: str) -> Note:
     tags = tags.split(",")
     for tag in tags:
         try:
             note.add_tag(tag.strip())
-            if not no_print:
-                print(f"[green]Added tag: {tag}[/]")
+            print(f"[green]Added tag: {tag}[/]")
         except Exception as e:
-            if not no_print:
-                print(f"[red]{e}[/]")
+            print(f"[red]{e}[/]")
 
 
 @input_error
@@ -168,7 +166,7 @@ def updated_tags_from_note(noteBook: NoteBook) -> None:
     old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
     tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
     if not tags == old_tags:
-        add_note_tags(note, tags, no_print=True)
+        add_note_tags(note, tags)
 
     render_notes_list([note], title="Updated note")
     return ""
