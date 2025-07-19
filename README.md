@@ -42,9 +42,18 @@ python -m venv .venv
 pip install project-rV5P74d8
 ```
 
+### ENV variables
+If variables are not set, files will be create by default in current branch with default name.
+- **ADDRESS_BOOK_FILE_NAME**: custom path to address book file. 
+- **NOTE_BOOK_FILE_NAME**: custom path to note book file.
+
 2. Run application:
 ```shell
 cli-assistant
+```
+Alternatively, you can run assistant with your file path using next command example:
+```shell
+ADDRESS_BOOK_FILE_NAME=<address_book_file_path> NOTE_BOOK_FILE_NAME=<note_book_file_path> cli-assistant
 ```
 
 ### Command Reference
