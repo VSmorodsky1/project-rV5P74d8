@@ -30,7 +30,15 @@ def add_contact(book: AddressBook) -> str:
     contact = book.find(name)
     message = "Contact updated."
 
-    if not contact:
+    if contact:
+        confirm = (
+            input(f"Contact already exists. Do you want update contact {name}? (y/n): ")
+            .strip()
+            .lower()
+        )
+        if confirm not in ["yes", "y"]:
+            return "Update cancelled"
+    else:
         contact = Record(name)
         book.add_record(contact)
         message = "Contact added."
