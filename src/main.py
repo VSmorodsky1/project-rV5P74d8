@@ -59,6 +59,8 @@ def main():
             match command:
                 case CLICommand.HELLO.value:
                     print(user_hello())
+                case CLICommand.HELP.value:
+                    help()
                 case CLICommand.ADD_CONTACT.value:
                     print(add_contact(book))
                 case CLICommand.FIND_CONTACT.value:
