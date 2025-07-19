@@ -90,10 +90,10 @@ def delete_contact(book: AddressBook):
 
 @input_error
 def edit_name(book: AddressBook) -> str:
-    name = input("Enter contact's name >>> ")
+    name = input("Enter contact's name >>> ").strip()
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
-    new_name = prompt("Enter new phone number  >>> ", default=name)
+    new_name = prompt("Enter new name  >>> ", default=name)
     contact.edit_name(new_name)
     return f"Contact's name changed from {name} to {new_name}."
