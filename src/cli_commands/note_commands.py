@@ -1,5 +1,6 @@
 from typing import List
 
+from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit import prompt
 from rich import print
 
@@ -134,4 +135,19 @@ def add_tags_to_note(noteBook: NoteBook):
     add_note_tags(note, tags)
 
     render_notes_list([note], title="Note with updated tag")
+    return ""
+
+
+@input_error
+def search_note_by_tag(noteBook: NoteBook):
+    tags_list = noteBook.note_tags
+    tags = WordCompleter(tags_list, ignore_case=True, sentence=True)
+    tag = prompt("Enter a tag >>> ", completer=tags, complete_while_typing=True).strip().lower()
+
+    notes = noteBook.find_matched_by_tag(tag)
+
+    if not notes:
+        return f"No note with tag '{tag}'."
+
+    render_note_list_by_title(notes, title=f"Note with tag {tag}")
     return ""

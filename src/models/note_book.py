@@ -6,6 +6,10 @@ from models.note import Note
 class NoteBook(UserList):
     """Represents a storage for Notes"""
 
+    @property
+    def note_tags(self) -> set[str]:
+        return {tag.value for note in self.data for tag in note.tags}
+
     def add_note(self, note: Note) -> None:
         """Add note into the NoteBook"""
 
@@ -13,7 +17,20 @@ class NoteBook(UserList):
 
     def find_matched_by_title(self, title: str) -> list[Note] | None:
         """Find note with matched name"""
+
         matched_notes = [note for note in self.data if title.lower() in note.title.lower()]
+        return matched_notes
+
+    def find_matched_by_tag(self, tag: str) -> list[Note] | None:
+        """Find note with matched tag"""
+
+        normalized = tag.lower().lstrip("#")
+        matched_notes = []
+        for note in self.data:
+            for t in note.tags:
+                if t.value.lower().lstrip("#") == normalized:
+                    matched_notes.append(note)
+                    break
         return matched_notes
 
     def find_by_title(self, title: str) -> Note | None:
