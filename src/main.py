@@ -1,7 +1,9 @@
+import os
 import sys
 
 from colorama import Fore, init
 from prompt_toolkit import prompt
+from dotenv import load_dotenv
 
 from utils.parse_input import parse_input
 from cli_commands.contact_commands import (
@@ -18,18 +20,23 @@ from cli_commands.note_commands import show_notes, add_note, find_note, update_n
 from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email, edit_email, delete_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
-from address_book_data_management import load_data, save_data
+from save_data_management import load_data, save_data
 from utils.command_completer import get_commands_list
 from enums.command_enum import CLICommand
 from cli_commands.help import help
 from models.note_book import NoteBook
+from models.address_book import AddressBook
 
 init(autoreset=True)
+load_dotenv()
+
+ADDRESS_BOOK_FILE_NAME = os.getenv("ADDRESS_BOOK_FILE_NAME", "contacts.pkl")
+NOTE_BOOK_FILE_NAME = os.getenv("NOTE_BOOK_FILE_NAME", "notes.pkl")
 
 
 def main():
-    book = load_data()
-    noteBook = NoteBook()
+    book = load_data(ADDRESS_BOOK_FILE_NAME, AddressBook)
+    noteBook = load_data(NOTE_BOOK_FILE_NAME, NoteBook)
     print("Welcome to Assistant Bot!")
     help()
     while True:
@@ -101,7 +108,8 @@ def main():
             print(f"{Fore.GREEN}Goodbye!")
             sys.exit(0)
         finally:
-            save_data(book)
+            save_data(ADDRESS_BOOK_FILE_NAME, book)
+            save_data(NOTE_BOOK_FILE_NAME, noteBook)
 
 
 if __name__ == "__main__":
