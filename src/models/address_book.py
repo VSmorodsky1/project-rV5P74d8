@@ -52,13 +52,6 @@ class AddressBook(UserList):
         ]
         return matched_contacts
 
-    def find_by_contact_id(self, contact_id: int) -> Record | None:
-        """Find contact in the book by contact_id"""
-
-        for record in self.data:
-            if record.contact_id == contact_id:
-                return record
-
     def delete_record(self, name: str) -> None:
         """
         Remove contact from the book
@@ -103,7 +96,6 @@ class AddressBook(UserList):
                 continue
             upcoming_birthdays.append(
                 {
-                    "id": contact.contact_id,
                     "name": contact.name.value,
                     "congratulation_date": birthday_congratulation_date,
                 }
