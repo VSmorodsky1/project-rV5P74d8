@@ -30,8 +30,8 @@ from models.address_book import AddressBook
 init(autoreset=True)
 load_dotenv()
 
-ADDRESS_BOOK_FILE_NAME = os.getenv("ADDRESS_BOOK_FILE_NAME")
-NOTE_BOOK_FILE_NAME = os.getenv("NOTE_BOOK_FILE_NAME")
+ADDRESS_BOOK_FILE_NAME = os.getenv("ADDRESS_BOOK_FILE_NAME", "contacts.pkl")
+NOTE_BOOK_FILE_NAME = os.getenv("NOTE_BOOK_FILE_NAME", "notes.pkl")
 
 
 def main():
