@@ -27,7 +27,11 @@ dependencies = [
     "colorama>=0.4.6",
     "prompt_toolkit>=3.0.51",
     "rich>=14.0.0",
+    "python-dotenv>=1.1.1"
 ]
+
+[project.optional-dependencies]
+dev = ["black", "pre_commit", "twine"]
 
 [project.scripts]
 cli-assistant = "main:main"
