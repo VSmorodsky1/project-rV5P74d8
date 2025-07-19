@@ -30,7 +30,7 @@ from cli_commands.birthday_commands import add_birthday, birthdays, show_birthda
 from save_data_management import load_data, save_data
 from utils.command_completer import get_commands_list
 from enums.command_enum import CLICommand
-from cli_commands.help import help
+from cli_commands.help import help, suggest_command
 from models.note_book import NoteBook
 from models.address_book import AddressBook
 
@@ -112,7 +112,12 @@ def main():
                 case CLICommand.DELETE_EMAIL.value:
                     print(delete_email(book))
                 case _:
-                    raise ValueError(f"Command [{command}] doesn't exist")
+                    suggested_command = suggest_command(command)
+                    if not suggested_command:
+                        raise ValueError(f"Command [{command}] doesn't exist")
+                    print(
+                        f"{Fore.YELLOW}Maybe do you mean one of these commands: {suggested_command}?\nEnter `help` command to check whole command list."
+                    )
         except TypeError as error:
             print(f"{Fore.RED}[Error] {str(error)}")
         except ValueError as error:

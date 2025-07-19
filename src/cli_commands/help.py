@@ -1,3 +1,5 @@
+import difflib
+
 from ui.render_table import render_table
 
 from enums.command_enum import CLICommand
@@ -65,4 +67,18 @@ def help() -> None:
     """
     render_table(
         commands_with_description, keys=["command_name", "description"], title="Available commands:"
+    )
+
+
+def suggest_command(user_input: str) -> list[str]:
+    """
+    Guess what command client means by analysing input.
+
+    Args
+        user_input(str): User input command
+    Return
+        list[str]: the best matched result
+    """
+    return difflib.get_close_matches(
+        user_input, [command.value for command in CLICommand], n=4, cutoff=0.4
     )
