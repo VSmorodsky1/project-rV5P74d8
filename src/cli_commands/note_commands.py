@@ -146,5 +146,8 @@ def search_note_by_tag(noteBook: NoteBook):
 
     notes = noteBook.find_matched_by_tag(tag)
 
+    if not notes:
+        return f"No note with tag '{tag}'."
+
     render_note_list_by_title(notes, title=f"Note with tag {tag}")
     return ""
