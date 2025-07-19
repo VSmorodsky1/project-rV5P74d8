@@ -154,7 +154,7 @@ def search_note_by_tag(noteBook: NoteBook):
 
 
 @input_error
-def updated_tags_from_note(noteBook: NoteBook) -> None:
+def updated_tags_from_note(noteBook: NoteBook):
     """Updated tag from the note list"""
 
     notes, title = find_matched_notes(
