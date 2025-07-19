@@ -35,6 +35,16 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     return notes[idx]
 
 
+def add_note_tags(note: List[Note], tags: str) -> Note:
+    tags = tags.split(",")
+    for tag in tags:
+        try:
+            note.add_tag(tag.strip())
+            print(f"[green]Added tag: {tag}[/]")
+        except Exception as e:
+            print(f"[red]{e}[/]")
+
+
 @input_error
 def show_notes(noteBook: NoteBook):
     if not noteBook.data:
@@ -54,6 +64,11 @@ def add_note(noteBook: NoteBook):
     description = prompt("Enter note's description >>> ")
     if description:
         note.description = description
+
+    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ").strip()
+    if tags:
+        add_note_tags(note, tags)
+
     render_notes_list([note], title="Your notes")
     return ""
 
@@ -80,6 +95,11 @@ def update_note(noteBook: NoteBook):
     new_desc = prompt("\nEdit note description >>> ", default=note.description)
     note.description = new_desc
 
+    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    tags = prompt(f"\nEdit tags, use ',' like delimiter >>> ", default=old_tags).strip()
+    if not tags == old_tags:
+        add_note_tags(note, tags)
+
     render_notes_list([note], title="Note updated")
     return ""
 
@@ -99,3 +119,19 @@ def delete_note(noteBook: NoteBook):
         return "Canceled deletion note."
     noteBook.remove_by_title(note.title)
     return f"Note {note.title} is deleted."
+
+
+@input_error
+def add_tags_to_note(noteBook: NoteBook):
+    notes, title = find_matched_notes(
+        noteBook, input_text="Enter note's title which you want to update >>> "
+    )
+
+    note = choose_note(notes, title, "add tags")
+    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ", default=old_tags).strip()
+
+    add_note_tags(note, tags)
+
+    render_notes_list([note], title="Note with updated tag")
+    return ""
