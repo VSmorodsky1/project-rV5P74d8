@@ -17,7 +17,7 @@ def find_matched_notes(noteBook: NoteBook, input_text: str = "Enter note's title
     return (notes, title)
 
 
-def render_not_list_by_title(notes: NoteBook, title: str, isNumbered: bool = False):
+def render_note_list_by_title(notes: NoteBook, title: str, isNumbered: bool = False):
     list_title = f"Notes which include the '{title}'"
     render_notes_list(notes, title=list_title, isNumbered=isNumbered)
 
@@ -27,7 +27,7 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     if len(notes) == 1:
         return notes[0]
 
-    render_not_list_by_title(notes, title, isNumbered=True)
+    render_note_list_by_title(notes, title, isNumbered=True)
 
     prompt_text = f"\nEnter number of note which you want to {action} >>> "
     user_number = prompt(prompt_text)
@@ -62,7 +62,7 @@ def add_note(noteBook: NoteBook):
 def find_note(noteBook: NoteBook):
     notes, title = find_matched_notes(noteBook)
 
-    render_not_list_by_title(notes, title)
+    render_note_list_by_title(notes, title)
     return ""
 
 
