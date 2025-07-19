@@ -29,9 +29,13 @@ class Note:
         self.tags.append(Tag(tag))
 
     def display(self):
-        tags_str = ", ".join(f"#{tag.value}" for tag in self.tags)
-        tags_in_panel = f"[bright_black]\n\n{tags_str}[/]" if tags_str else ""
-        return Panel(f"[bold magenta]{self.title}[/]\n\n{self.description}{tags_in_panel}")
+        tags_str = (
+            f"[bright_black]\n\n{', '.join(f'#{tag.value}' for tag in self.tags)}[/]"
+            if self.tags
+            else ""
+        )
+        desc = f"\n\n{self.description}" if self.description else ""
+        return Panel(f"[bold magenta]{self.title}[/]{desc}{tags_str}")
 
     def __str__(self):
         return f"Note title: {self.title}, description: {self.description}"

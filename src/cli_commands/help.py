@@ -35,6 +35,7 @@ commands_with_description = [
     {"command_name": CLICommand.DELETE_PHONE.value, "description": "Delete contact's phone."},
     {"command_name": CLICommand.ADD_ADDRESS.value, "description": "Add contact's address."},
     {"command_name": CLICommand.EDIT_ADDRESS.value, "description": "Edit contact's address."},
+    {"command_name": CLICommand.DELETE_ADDRESS.value, "description": "Delete contact's address."},
     {"command_name": CLICommand.ADD_BIRTHDAY.value, "description": "Add contact's birthday."},
     {"command_name": CLICommand.ADD_EMAIL.value, "description": "Add contact's email."},
     {"command_name": CLICommand.EDIT_EMAIL.value, "description": "Edit contact's email."},
@@ -60,14 +61,13 @@ commands_with_description = [
 ]
 
 
-def help() -> str:
+def help() -> None:
     """
     Return command list with description
     """
     render_table(
         commands_with_description, keys=["command_name", "description"], title="Available commands:"
     )
-    return "Use 'help' command to see available commands and their descriptions."
 
 
 def suggest_command(user_input: str) -> list[str]:
