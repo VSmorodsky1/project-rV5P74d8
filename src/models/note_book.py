@@ -23,10 +23,10 @@ class NoteBook(UserList):
             if note.title == title:
                 return note
 
-    def remove_by_note_id(self, id: int) -> None:
+    def remove_by_title(self, title: str) -> None:
         """Remove note by id from the book"""
 
         for note in self.data:
-            if note.id.value == id:
+            if note.title == title:
                 self.data.remove(note)
                 return

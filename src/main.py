@@ -16,7 +16,7 @@ from cli_commands.contact_commands import (
     edit_name,
 )
 from cli_commands.phone_commands import show_phone, add_phone, edit_phone, delete_phone
-from cli_commands.note_commands import show_notes, add_note, find_note, update_note
+from cli_commands.note_commands import show_notes, add_note, find_note, update_note, delete_note
 from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email, edit_email, delete_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
@@ -90,6 +90,8 @@ def main():
                     print(add_note(noteBook))
                 case CLICommand.UPDATE_NOTE.value:
                     print(update_note(noteBook))
+                case CLICommand.DELETE_NOTE.value:
+                    print(delete_note(noteBook))
                 case CLICommand.FIND_NOTE.value:
                     print(find_note(noteBook))
                 case CLICommand.ADD_EMAIL.value:

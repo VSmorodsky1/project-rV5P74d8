@@ -17,6 +17,7 @@ class CLICommand(Enum):
     ADD_NOTE = "add_note"
     FIND_NOTE = "find_note"
     UPDATE_NOTE = "update_note"
+    DELETE_NOTE = "delete_note"
     ADD_ADDRESS = "add_address"
     ADD_EMAIL = "add_email"
     EDIT_EMAIL = "edit_email"
