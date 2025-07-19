@@ -18,7 +18,7 @@ def user_hello() -> str:
 def show_all(book: AddressBook) -> str:
     if not book.data:
         return "Address book is empty."
-    headers = ["name", "birthday", "phones", "address", "email"]
+    headers = ["name", "phones", "email", "address", "birthday"]
     records = list(book.data)
     render_table(records, keys=headers, title="📒 Address Book")
     return ""
@@ -56,8 +56,8 @@ def find_contact(book: AddressBook):
     contacts = book.find_matched(name)
     if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
-    header = ["name", "phones", "birthday"]
-    render_table(contacts, keys=header, title=f"Found contacts:")
+    headers = ["name", "phones", "email", "address", "birthday"]
+    render_table(contacts, keys=headers, title=f"Found contacts:")
     return ""
 
 
@@ -68,7 +68,8 @@ def find_contact_by_phone(book: AddressBook):
     contacts = book.find_by_phone(phone)
     if not contacts:
         raise ValueError(f"Contact with phone [{phone}] not found.")
-    render_table(contacts, keys=["name", "phones", "birthday"], title="Found contacts:")
+    headers = ["name", "phones", "email", "address", "birthday"]
+    render_table(contacts, keys=headers, title="Found contacts:")
     return ""
 
 
@@ -89,10 +90,10 @@ def delete_contact(book: AddressBook):
 
 @input_error
 def edit_name(book: AddressBook) -> str:
-    name = input("Enter contact's name >>> ")
+    name = input("Enter contact's name >>> ").strip()
     contact = book.find(name)
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
-    new_name = prompt("Enter new phone number  >>> ", default=name)
+    new_name = prompt("Enter new name  >>> ", default=name)
     contact.edit_name(new_name)
     return f"Contact's name changed from {name} to {new_name}."

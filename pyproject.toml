@@ -7,3 +7,31 @@ exclude = '''
   | __pycache__
 )/
 '''
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "project-rV5P74d8"
+version = "1.0.1"
+description = "Simple CLI assistant with contacts and notes management features."
+authors = [
+    { name = "VSmorodsky1" },
+    { name = "NataliiaBokhonska" },
+    { name = "Bit-Inside" },
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "colorama>=0.4.6",
+    "prompt_toolkit>=3.0.51",
+    "rich>=14.0.0",
+    "python-dotenv>=1.1.1"
+]
+
+[project.optional-dependencies]
+dev = ["black", "pre_commit", "twine"]
+
+[project.scripts]
+cli-assistant = "main:main"

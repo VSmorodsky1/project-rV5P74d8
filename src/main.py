@@ -1,7 +1,9 @@
+import os
 import sys
 
 from colorama import Fore, init
 from prompt_toolkit import prompt
+from dotenv import load_dotenv
 
 from utils.parse_input import parse_input
 from cli_commands.contact_commands import (
@@ -14,22 +16,34 @@ from cli_commands.contact_commands import (
     edit_name,
 )
 from cli_commands.phone_commands import show_phone, add_phone, edit_phone, delete_phone
-from cli_commands.note_commands import show_notes, add_note, find_note, update_note
+from cli_commands.note_commands import (
+    show_notes,
+    add_note,
+    find_note,
+    update_note,
+    delete_note,
+    add_tags_to_note,
+)
 from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email, edit_email, delete_email
 from cli_commands.birthday_commands import add_birthday, birthdays, show_birthday
-from address_book_data_management import load_data, save_data
+from save_data_management import load_data, save_data
 from utils.command_completer import get_commands_list
 from enums.command_enum import CLICommand
-from cli_commands.help import help
+from cli_commands.help import help, suggest_command
 from models.note_book import NoteBook
+from models.address_book import AddressBook
 
 init(autoreset=True)
+load_dotenv()
+
+ADDRESS_BOOK_FILE_NAME = os.getenv("ADDRESS_BOOK_FILE_NAME", "contacts.pkl")
+NOTE_BOOK_FILE_NAME = os.getenv("NOTE_BOOK_FILE_NAME", "notes.pkl")
 
 
 def main():
-    book = load_data()
-    noteBook = NoteBook()
+    book = load_data(ADDRESS_BOOK_FILE_NAME, AddressBook)
+    noteBook = load_data(NOTE_BOOK_FILE_NAME, NoteBook)
     print("Welcome to Assistant Bot!")
     help()
     while True:
@@ -45,6 +59,8 @@ def main():
             match command:
                 case CLICommand.HELLO.value:
                     print(user_hello())
+                case CLICommand.HELP.value:
+                    help()
                 case CLICommand.ADD_CONTACT.value:
                     print(add_contact(book))
                 case CLICommand.FIND_CONTACT.value:
@@ -83,6 +99,10 @@ def main():
                     print(add_note(noteBook))
                 case CLICommand.UPDATE_NOTE.value:
                     print(update_note(noteBook))
+                case CLICommand.ADD_TAGS_TO_NOTE.value:
+                    print(add_tags_to_note(noteBook))
+                case CLICommand.DELETE_NOTE.value:
+                    print(delete_note(noteBook))
                 case CLICommand.FIND_NOTE.value:
                     print(find_note(noteBook))
                 case CLICommand.ADD_EMAIL.value:
@@ -92,7 +112,12 @@ def main():
                 case CLICommand.DELETE_EMAIL.value:
                     print(delete_email(book))
                 case _:
-                    raise ValueError(f"Command [{command}] doesn't exist")
+                    suggested_command = suggest_command(command)
+                    if not suggested_command:
+                        raise ValueError(f"Command [{command}] doesn't exist")
+                    print(
+                        f"{Fore.YELLOW}Maybe do you mean one of these commands: {suggested_command}?\nEnter `help` command to check whole command list."
+                    )
         except TypeError as error:
             print(f"{Fore.RED}[Error] {str(error)}")
         except ValueError as error:
@@ -101,7 +126,8 @@ def main():
             print(f"{Fore.GREEN}Goodbye!")
             sys.exit(0)
         finally:
-            save_data(book)
+            save_data(ADDRESS_BOOK_FILE_NAME, book)
+            save_data(NOTE_BOOK_FILE_NAME, noteBook)
 
 
 if __name__ == "__main__":
