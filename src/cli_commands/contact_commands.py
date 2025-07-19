@@ -18,7 +18,7 @@ def user_hello() -> str:
 def show_all(book: AddressBook) -> str:
     if not book.data:
         return "Address book is empty."
-    headers = ["name", "birthday", "phones", "address", "email"]
+    headers = ["name", "phones", "email", "address", "birthday"]
     records = list(book.data)
     render_table(records, keys=headers, title="📒 Address Book")
     return ""
@@ -56,8 +56,8 @@ def find_contact(book: AddressBook):
     contacts = book.find_matched(name)
     if len(contacts) == 0:
         raise ValueError(f"Contact with name [{name}] not found.")
-    header = ["name", "phones", "birthday"]
-    render_table(contacts, keys=header, title=f"Found contacts:")
+    headers = ["name", "phones", "email", "address", "birthday"]
+    render_table(contacts, keys=headers, title=f"Found contacts:")
     return ""
 
 
@@ -68,7 +68,8 @@ def find_contact_by_phone(book: AddressBook):
     contacts = book.find_by_phone(phone)
     if not contacts:
         raise ValueError(f"Contact with phone [{phone}] not found.")
-    render_table(contacts, keys=["name", "phones", "birthday"], title="Found contacts:")
+    headers = ["name", "phones", "email", "address", "birthday"]
+    render_table(contacts, keys=headers, title="Found contacts:")
     return ""
 
 

@@ -22,7 +22,7 @@ def edit_email(book: AddressBook) -> str:
     if not contact:
         raise ValueError(f"Contact with name [{name}] not found.")
 
-    contact_email = contact.email if contact.email.value else ""
+    contact_email = contact.email.value if contact.email else ""
     new_email = prompt("Edit your email >>> ", default=contact_email)
     contact.add_email(new_email)
     return f"Email for {name} updated."

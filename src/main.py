@@ -56,7 +56,7 @@ def main():
                     print(add_contact(book))
                 case CLICommand.FIND_CONTACT.value:
                     print(find_contact(book))
-                case CLICommand.FIND_CONTACT_BY_PHONE:
+                case CLICommand.FIND_CONTACT_BY_PHONE.value:
                     print(find_contact_by_phone(book))
                 case CLICommand.DELETE_CONTACT.value:
                     print(delete_contact(book))
