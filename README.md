@@ -32,6 +32,11 @@ A simple CLI application for managing your personal contacts and notes. Designed
 
 ## Installation
 
+Suggestion: You can create a virtual environment to use the package encapsulated from the system-wide Python on your OS:
+```shell
+python -m venv .venv
+```
+
 1. Run command to install package:
 ```shell
 pip install project-rV5P74d8
@@ -46,27 +51,26 @@ cli-assistant
 
 | Command Name          | Description                                                                                 |
 |-----------------------|---------------------------------------------------------------------------------------------|
-| `create_contact`      | Create a contact with name and phones (optional, separated by commas) in the contact book. |
-| `find_contact`        | Find a contact from the contact book by full or partial name.                               |
-| `find_contact_by_phone` | Find a contact from the contact book by phone.                                            |
-| `delete_contact`      | Delete a contact from the contact book.                                                     |
-| `show_all`            | Show all contact info (name, phones, email, address, birthday) from the contact book.       |
-| `edit_name`           | Edit a contact's name.                                                                      |
-| `show_phones`         | Show all phone numbers for a contact.                                                       |
-| `add_phone`           | Add phone numbers (comma-separated) to a contact.                                           |
-| `edit_phone`          | Edit a contact's phone number.                                                              |
-| `delete_phone`        | Delete a contact's phone number.                                                            |
-| `add_address`         | Add a contact's address.                                                                    |
-| `edit_address`        | Edit a contact's address.                                                                   |
-| `add_birthday`        | Add a contact's birthday.                                                                   |
-| `add_email`           | Add a contact's email address.                                                              |
-| `edit_email`          | Edit a contact's email address.                                                             |
-| `delete_email`        | Delete a contact's email address.                                                           |
-| `show_birthday`       | Show all contact birthdays, matched by name (partial or full).                              |
-| `birthdays`           | Show upcoming contact birthdays within a specified number of days from today.               |
-| `find_note`           | Find notes by title, matching partially or fully.                                           |
-| `show_notes`          | Show all notes.                                                                             |
-| `add_note`            | Add a note with title and description.                                                      |
-| `help`                | Show help information about available commands.  
-
-
+| help                  | Show list of available commands                                                             |
+| create_contact        | Create a contact with name and phones (optional, separated by comma) from the contact book. |
+| find_contact          | Find a contact from the contact book by full or partial name.                               |
+| find_contact_by_phone | Find a contact from the contact book by phone.                                              |
+| delete_contact        | Delete a contact from the contact book.                                                     |
+| show_all              | Show all contacts info (name, phones, email, address, birthday) from the contact book.      |
+| edit_name             | Edit a contact name.                                                                        |
+| show_phones           | Show all contact's phones.                                                                  |
+| add_phone             | Add phones, separated by comma, to contact.                                                 |
+| edit_phone            | Edit contact's phone.                                                                       |
+| delete_phone          | Delete contact's phone.                                                                     |
+| add_address           | Add contact's address.                                                                      |
+| edit_address          | Edit contact's address.                                                                     |
+| delete_address        | Delete contact's address.                                                                   |
+| add_birthday          | Add contact's birthday.                                                                     |
+| add_email             | Add contact's email.                                                                        |
+| edit_email            | Edit contact's email.                                                                       |
+| delete_email          | Delete contact's email.                                                                     |
+| show_birthday         | Show all contacts birthday, matched by name partially or full.                              |
+| birthdays             | Show upcoming contact birthdays within the specified number of days from today.             |
+| find_note             | Find notes by title, matching partially or fully.                                           |
+| show_notes            | Show all notes.                                                                             |
+| add_note              | Add note with title and description.                                                        |
