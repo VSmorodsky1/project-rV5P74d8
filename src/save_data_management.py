@@ -10,6 +10,10 @@ def save_data(filename: Union[str, Path], data: T) -> None:
     Save class data to disk
     """
     path = Path(filename)
+
+    if path.parent and not path.parent.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+
     with path.open("wb") as f:
         pickle.dump(data, f)
 
