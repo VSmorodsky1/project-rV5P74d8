@@ -18,7 +18,7 @@ def find_matched_notes(noteBook: NoteBook, input_text: str = "Enter note's title
     return (notes, title)
 
 
-def render_note_list_by_title(notes: NoteBook, title: str, isNumbered: bool = False):
+def render_note_list_by_title(notes: NoteBook, title: str, isNumbered: bool = False) -> None:
     list_title = f"Notes which include the '{title}'"
     render_notes_list(notes, title=list_title, isNumbered=isNumbered)
 
@@ -47,7 +47,7 @@ def add_note_tags(note: List[Note], tags: str) -> Note:
 
 
 @input_error
-def show_notes(noteBook: NoteBook):
+def show_notes(noteBook: NoteBook) -> str:
     if not noteBook.data:
         return "Note book is empty."
 
@@ -57,7 +57,7 @@ def show_notes(noteBook: NoteBook):
 
 
 @input_error
-def add_note(noteBook: NoteBook):
+def add_note(noteBook: NoteBook) -> str:
     title = prompt("Enter note's title >>> ")
     note = Note(title)
     noteBook.add_note(note)
@@ -83,7 +83,7 @@ def find_note(noteBook: NoteBook):
 
 
 @input_error
-def update_note(noteBook: NoteBook):
+def update_note(noteBook: NoteBook) -> str:
     notes, title = find_matched_notes(
         noteBook, input_text="Enter note's title which you want to update >>> "
     )
@@ -101,12 +101,12 @@ def update_note(noteBook: NoteBook):
     if not tags == old_tags:
         add_note_tags(note, tags)
 
-    render_notes_list([note], title="Note updated")
+    render_notes_list([note], title="Updated note")
     return ""
 
 
 @input_error
-def delete_note(noteBook: NoteBook):
+def delete_note(noteBook: NoteBook) -> str:
     notes, title = find_matched_notes(
         noteBook, input_text="Enter note's title which you want to delete >>> "
     )
@@ -123,7 +123,7 @@ def delete_note(noteBook: NoteBook):
 
 
 @input_error
-def add_tags_to_note(noteBook: NoteBook):
+def add_tags_to_note(noteBook: NoteBook) -> str:
     notes, title = find_matched_notes(
         noteBook, input_text="Enter note's title which you want to update >>> "
     )
@@ -139,7 +139,7 @@ def add_tags_to_note(noteBook: NoteBook):
 
 
 @input_error
-def search_note_by_tag(noteBook: NoteBook):
+def search_note_by_tag(noteBook: NoteBook) -> str:
     tags_list = noteBook.note_tags
     tags = WordCompleter(tags_list, ignore_case=True, sentence=True)
     tag = prompt("Enter a tag >>> ", completer=tags, complete_while_typing=True).strip().lower()
@@ -150,4 +150,23 @@ def search_note_by_tag(noteBook: NoteBook):
         return f"No note with tag '{tag}'."
 
     render_note_list_by_title(notes, title=f"Note with tag {tag}")
+    return ""
+
+
+@input_error
+def updated_tags_from_note(noteBook: NoteBook) -> str:
+    """Updated tag from the note list"""
+
+    notes, title = find_matched_notes(
+        noteBook, input_text="Enter note's title which you want to delete >>> "
+    )
+
+    note = choose_note(notes, title, "update tags")
+
+    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
+    if not tags == old_tags:
+        add_note_tags(note, tags)
+
+    render_notes_list([note], title="Updated note")
     return ""

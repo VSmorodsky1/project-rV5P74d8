@@ -24,6 +24,7 @@ from cli_commands.note_commands import (
     delete_note,
     add_tags_to_note,
     search_note_by_tag,
+    updated_tags_from_note,
 )
 from cli_commands.address_commands import add_address, edit_address, delete_address
 from cli_commands.email_commands import add_email, edit_email, delete_email
@@ -104,6 +105,8 @@ def main():
                     print(add_tags_to_note(noteBook))
                 case CLICommand.SEARCH_NOTE_BY_TAG.value:
                     print(search_note_by_tag(noteBook))
+                case CLICommand.UPDATED_TAGS_FROM_NOTE.value:
+                    print(updated_tags_from_note(noteBook))
                 case CLICommand.DELETE_NOTE.value:
                     print(delete_note(noteBook))
                 case CLICommand.FIND_NOTE.value:
