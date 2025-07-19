@@ -17,7 +17,7 @@ def save_data(filename: Union[str, Path], data: T) -> None:
 def load_data(filename: Union[str, Path], cls: Type[T]) -> T:
     """
     Load class data from disk if file exists.
-    If file not found, return new AddressBook object.
+    If file not found, return new object.
     """
     path = Path(filename)
     try:
