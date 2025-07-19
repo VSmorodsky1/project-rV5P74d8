@@ -36,14 +36,16 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     return notes[idx]
 
 
-def add_note_tags(note: List[Note], tags: str) -> Note:
+def add_note_tags(note: List[Note], tags: str, no_print: bool = False) -> Note:
     tags = tags.split(",")
     for tag in tags:
         try:
             note.add_tag(tag.strip())
-            print(f"[green]Added tag: {tag}[/]")
+            if not no_print:
+                print(f"[green]Added tag: {tag}[/]")
         except Exception as e:
-            print(f"[red]{e}[/]")
+            if not no_print:
+                print(f"[red]{e}[/]")
 
 
 @input_error
@@ -101,7 +103,7 @@ def update_note(noteBook: NoteBook):
     if not tags == old_tags:
         add_note_tags(note, tags)
 
-    render_notes_list([note], title="Note updated")
+    render_notes_list([note], title="Updated note")
     return ""
 
 
@@ -150,4 +152,23 @@ def search_note_by_tag(noteBook: NoteBook):
         return f"No note with tag '{tag}'."
 
     render_note_list_by_title(notes, title=f"Note with tag {tag}")
+    return ""
+
+
+@input_error
+def updated_tags_from_note(noteBook: NoteBook) -> None:
+    """Updated tag from the note list"""
+
+    notes, title = find_matched_notes(
+        noteBook, input_text="Enter note's title which you want to delete >>> "
+    )
+
+    note = choose_note(notes, title, "update tags")
+
+    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
+    if not tags == old_tags:
+        add_note_tags(note, tags, no_print=True)
+
+    render_notes_list([note], title="Updated note")
     return ""

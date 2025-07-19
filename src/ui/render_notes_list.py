@@ -6,9 +6,9 @@ from rich.align import Align
 from models.note import Note
 
 
-def render_notes_list(notes: List[Note], title="🗒  Notes book", isNumbered=False):
+def render_notes_list(notes: List[Note], title="Notes book", isNumbered=False):
     console = Console(record=True)
-    console.print(Align(f"\n[b magenta]{title}:[/]", align="center"))
+    console.print(Align(f"\n[b magenta]🗒  {title}:[/]", align="center"))
     for index, note in enumerate(notes, start=1):
         if isNumbered:
             console.print(f"[b green]{index}[/]")
