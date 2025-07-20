@@ -1,0 +1,106 @@
+from collections import UserList
+from datetime import datetime, timedelta
+
+from models.record import Record
+
+
+class AddressBook(UserList):
+    """
+    Represents a storage for Records
+    """
+
+    def add_record(self, contact_record: Record) -> None:
+        """
+        Add contact into the book
+
+        Args:
+            contact_record(Record): contact data
+        """
+        self.data.append(contact_record)
+
+    def find(self, name: str) -> Record | None:
+        """
+        Find contact in the book
+
+        Args:
+            name (str): contact name
+        Return:
+            Record: record contact data
+        """
+        for record in self.data:
+            if record.name.value.lower() == name.lower():
+                return record
+
+    def find_by_phone(self, phone: str) -> Record | None:
+        """Find contact by phone in the book"""
+        matched_contacts = [
+            contact for contact in self.data if any(phone == p.value for p in contact.phones)
+        ]
+        return matched_contacts
+
+    def find_matched(self, name: str) -> list[Record] | None:
+        """
+        Find contacts with matched name
+
+        Arg:
+            name (str): contact name
+        Return:
+            list[Record]|None: list of contacts
+        """
+        matched_contacts = [
+            contact for contact in self.data if name.lower() in contact.name.value.lower()
+        ]
+        return matched_contacts
+
+    def delete_record(self, name: str) -> None:
+        """
+        Remove contact from the book
+
+        Args:
+            name (str): contact name
+        """
+        for record in self.data:
+            if record.name.value.lower() == name.lower():
+                self.data.remove(record)
+                return
+
+    def get_upcoming_birthdays(self, days_count: int = 7):
+        """
+        Get users with upcoming birthday (one week)
+
+        Returns:
+            list[dict[str, str]]: list of contacts with upcoming birthdays
+        """
+        birthday_limit = timedelta(days=days_count)
+        upcoming_birthdays = []
+        current_date = datetime.today().date()
+        for contact in self.data:
+            if not contact.birthday:
+                continue
+            birthday_date = datetime.strptime(contact.birthday.value, "%d.%m.%Y").date()
+            birthday_congratulation_date = datetime(
+                year=current_date.year, month=birthday_date.month, day=birthday_date.day
+            ).date()
+            birthday_next_year = datetime(
+                year=current_date.year + 1,
+                month=birthday_date.month,
+                day=birthday_date.day,
+            ).date()
+
+            if birthday_congratulation_date < current_date:
+                if birthday_next_year - current_date > birthday_limit:
+                    continue
+                birthday_congratulation_date = birthday_next_year
+
+            if birthday_congratulation_date - current_date > birthday_limit:
+                continue
+            upcoming_birthdays.append(
+                {
+                    "name": contact.name.value,
+                    "congratulation_date": birthday_congratulation_date,
+                }
+            )
+        upcoming_birthdays = sorted(
+            upcoming_birthdays, key=lambda item: item["congratulation_date"]
+        )
+        return upcoming_birthdays
