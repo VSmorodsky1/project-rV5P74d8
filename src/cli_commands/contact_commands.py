@@ -10,10 +10,6 @@ from models.record import Record
 init(autoreset=True)
 
 
-def user_hello() -> str:
-    return "How can I help you?"
-
-
 @input_error
 def show_all(book: AddressBook) -> str:
     if not book.data:
