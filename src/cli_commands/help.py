@@ -85,6 +85,10 @@ commands_with_description = [
 ]
 
 
+def user_hello() -> str:
+    return "How can I help you?"
+
+
 def help() -> None:
     """
     Return command list with description
