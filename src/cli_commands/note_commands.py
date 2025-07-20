@@ -12,7 +12,7 @@ from models.note_book import NoteBook
 
 def find_matched_notes(noteBook: NoteBook, input_text: str = "Enter note's title >>> "):
     title = prompt(input_text)
-    notes = noteBook.find_matched_by_title(title)
+    notes = noteBook.find_matched_by_title(title.strip())
     if not notes:
         raise ValueError(f"Note with title [{title}] not found.")
     return (notes, title)
@@ -158,7 +158,7 @@ def updated_tags_from_note(noteBook: NoteBook) -> str:
     """Updated tag from the note list"""
 
     notes, title = find_matched_notes(
-        noteBook, input_text="Enter note's title which you want to delete >>> "
+        noteBook, input_text="Enter note's title which you want to update >>> "
     )
 
     note = choose_note(notes, title, "update tags")

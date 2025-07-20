@@ -18,7 +18,7 @@ class NoteBook(UserList):
     def find_matched_by_title(self, title: str) -> list[Note] | None:
         """Find note with matched name"""
 
-        matched_notes = [note for note in self.data if title.lower() in note.title.lower()]
+        matched_notes = [note for note in self.data if title.strip().lower() in note.title.lower()]
         return matched_notes
 
     def find_matched_by_tag(self, tag: str) -> list[Note] | None:
