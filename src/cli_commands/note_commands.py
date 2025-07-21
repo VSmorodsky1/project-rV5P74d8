@@ -170,16 +170,12 @@ def updated_tags_from_note(noteBook: NoteBook) -> str:
         title=f"Tags for {note.title}:",
     )
 
-    id = int(input("Enter phone id to edit  >>> "))
+    id = int(input("Enter tag id to edit  >>> "))
     replaced_tag = note.tags[id]
-    new_tag = prompt("Enter new phone number  >>> ", default=replaced_tag.value)
+    new_tag = prompt("Enter new tag  >>> ", default=replaced_tag.value)
 
     note.add_tag(new_tag)
     del note.tags[id]
-    # old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    # tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
-    # if not tags == old_tags:
-    #     add_note_tags(note, tags)
 
     render_notes_list([note], title="Updated note")
     return ""

@@ -72,11 +72,11 @@ commands_with_description = [
     },
     {
         "command_name": CLICommand.ADD_TAGS_TO_NOTE.value,
-        "description": "Add tagst by note title, matching partially or fully.",
+        "description": "Add tags by note title, matching partially or fully.",
     },
     {
         "command_name": CLICommand.UPDATED_TAGS_FROM_NOTE.value,
-        "description": "Update tagst by note title, matching partially or fully.",
+        "description": "Update tags by note title, matching partially or fully.",
     },
     {
         "command_name": f"{CLICommand.EXIT.value} / {CLICommand.CLOSE.value}",
