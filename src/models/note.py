@@ -28,14 +28,6 @@ class Note:
                 raise ValueError(f"Tag {tag} already exists.")
         self.tags.append(Tag(tag))
 
-    def remove_tag(self, tag) -> None:
-        """Remove tag from taglist"""
-        for tag_item in self.phones:
-            if tag_item.value == tag:
-                self.phones.remove(tag_item)
-                return
-        raise ValueError(f"There is no tag with value: {tag}")
-
     def remove_tags(self) -> None:
         """Remove all tags"""
         self.tags = []
