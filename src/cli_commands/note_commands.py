@@ -37,14 +37,24 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     return notes[idx]
 
 
-def add_note_tags(note: List[Note], tags: str) -> Note:
+def add_note_tags(note: Note, tags: str, noPrint: bool = False) -> Note:
     tags = tags.split(",")
     for tag in tags:
         try:
             note.add_tag(tag.strip())
-            print(f"[green]Added tag: {tag}[/]")
+            if not noPrint:
+                print(f"[green]Added tag: {tag}[/]")
         except Exception as e:
-            print(f"[red]{e}[/]")
+            if not noPrint:
+                print(f"[red]{e}[/]")
+
+
+def update_tag_list(note: Note) -> None:
+    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
+    if not tags == old_tags:
+        note.remove_tags()
+        add_note_tags(note, tags)
 
 
 @input_error
@@ -97,9 +107,7 @@ def update_note(noteBook: NoteBook) -> str:
     new_desc = prompt("\nEdit note description >>> ", default=note.description)
     note.description = new_desc
 
-    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ").strip()
-    if tags:
-        add_note_tags(note, tags)
+    update_tag_list(note)
 
     render_notes_list([note], title="Updated note")
     return ""
@@ -157,24 +165,12 @@ def updated_tags_from_note(noteBook: NoteBook) -> str:
     """Updated tag from the note list"""
 
     notes, title = find_matched_notes(
-        noteBook, input_text="Enter note's title which you want to update >>> "
+        noteBook, input_text="Enter note's title which you want to delete >>> "
     )
 
     note = choose_note(notes, title, "update tags")
 
-    header = ["id", "tag"]
-    render_table(
-        [{"id": index, "tag": tag} for index, tag in enumerate(note.tags)],
-        keys=header,
-        title=f"Tags for {note.title}:",
-    )
-
-    id = int(input("Enter tag id to edit  >>> "))
-    replaced_tag = note.tags[id]
-    new_tag = prompt("Enter new tag  >>> ", default=replaced_tag.value)
-
-    note.add_tag(new_tag)
-    del note.tags[id]
+    update_tag_list(note)
 
     render_notes_list([note], title="Updated note")
     return ""
