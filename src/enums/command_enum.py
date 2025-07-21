@@ -33,7 +33,7 @@ class CLICommand(Enum):
     UPDATE_NOTE = "update_note"
     DELETE_NOTE = "delete_note"
     ADD_TAGS_TO_NOTE = "add_tags_to_note"
-    UPDATED_TAGS_FROM_NOTE = "updated_tags_from_note"
+    UPDATED_TAGS_FROM_NOTE = "update_tags_from_note"
 
     EXIT = "exit"
     CLOSE = "close"

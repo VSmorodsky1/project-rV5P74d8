@@ -14,7 +14,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "project-rV5P74d8"
-version = "1.0.4"
+version = "1.0.5"
 description = "Simple CLI assistant with contacts and notes management features."
 authors = [
     { name = "VSmorodsky1" },

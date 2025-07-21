@@ -19,7 +19,7 @@ from cli_commands.note_commands import (
     delete_note,
     add_tags_to_note,
     search_note_by_tag,
-    updated_tags_from_note,
+    update_tags_from_note,
 )
 
 contact_commands_dict = {
@@ -52,5 +52,5 @@ note_commands_dict = {
     CLICommand.DELETE_NOTE.value: delete_note,
     CLICommand.ADD_TAGS_TO_NOTE.value: add_tags_to_note,
     CLICommand.SEARCH_NOTE_BY_TAG.value: search_note_by_tag,
-    CLICommand.UPDATED_TAGS_FROM_NOTE.value: updated_tags_from_note,
+    CLICommand.UPDATED_TAGS_FROM_NOTE.value: update_tags_from_note,
 }
