@@ -166,7 +166,7 @@ def update_tags_from_note(noteBook: NoteBook) -> str:
     """Update tags from the note list"""
 
     notes, title = find_matched_notes(
-        noteBook, input_text="Enter note's title which you want to delete >>> "
+        noteBook, input_text="Enter note's title which you want to update >>> "
     )
 
     note = choose_note(notes, title, "update tags")
