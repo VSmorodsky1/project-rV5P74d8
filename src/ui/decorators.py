@@ -2,7 +2,13 @@ from functools import wraps
 
 from colorama import Fore, init
 
-from exceptions import PhoneFormatError, DateFormatError, RequiredValueError, EmailFormatError
+from exceptions import (
+    PhoneFormatError,
+    DateFormatError,
+    RequiredValueError,
+    EmailFormatError,
+    TagFormatError,
+)
 
 init(autoreset=True)
 
@@ -21,6 +27,8 @@ def input_error(fn: callable):
         except DateFormatError as error:
             return f"{Fore.RED}[Error] {str(error)}"
         except EmailFormatError as error:
+            return f"{Fore.RED}[Error] {str(error)}"
+        except TagFormatError as error:
             return f"{Fore.RED}[Error] {str(error)}"
         except KeyError as error:
             return f"{Fore.RED}[Error] Enter the name"

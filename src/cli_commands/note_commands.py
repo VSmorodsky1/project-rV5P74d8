@@ -6,6 +6,7 @@ from rich import print
 
 from ui.decorators import input_error
 from ui.render_notes_list import render_notes_list
+from ui.render_table import render_table
 from models.note import Note
 from models.note_book import NoteBook
 
@@ -129,8 +130,7 @@ def add_tags_to_note(noteBook: NoteBook) -> str:
     )
 
     note = choose_note(notes, title, "add tags")
-    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ", default=old_tags).strip()
+    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ").strip()
 
     add_note_tags(note, tags)
 
@@ -163,10 +163,23 @@ def updated_tags_from_note(noteBook: NoteBook) -> str:
 
     note = choose_note(notes, title, "update tags")
 
-    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
-    if not tags == old_tags:
-        add_note_tags(note, tags)
+    header = ["id", "tag"]
+    render_table(
+        [{"id": index, "tag": tag} for index, tag in enumerate(note.tags)],
+        keys=header,
+        title=f"Tags for {note.title}:",
+    )
+
+    id = int(input("Enter phone id to edit  >>> "))
+    replaced_tag = note.tags[id]
+    new_tag = prompt("Enter new phone number  >>> ", default=replaced_tag.value)
+
+    note.add_tag(new_tag)
+    del note.tags[id]
+    # old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    # tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
+    # if not tags == old_tags:
+    #     add_note_tags(note, tags)
 
     render_notes_list([note], title="Updated note")
     return ""
