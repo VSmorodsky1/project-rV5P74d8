@@ -28,6 +28,10 @@ class Note:
                 raise ValueError(f"Tag {tag} already exists.")
         self.tags.append(Tag(tag))
 
+    def remove_tags(self) -> None:
+        """Remove all tags"""
+        self.tags = []
+
     def display(self):
         tags_str = (
             f"[bright_black]\n\n{', '.join(f'#{tag.value}' for tag in self.tags)}[/]"

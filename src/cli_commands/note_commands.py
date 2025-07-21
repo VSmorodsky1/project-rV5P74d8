@@ -6,13 +6,14 @@ from rich import print
 
 from ui.decorators import input_error
 from ui.render_notes_list import render_notes_list
+from ui.render_table import render_table
 from models.note import Note
 from models.note_book import NoteBook
 
 
 def find_matched_notes(noteBook: NoteBook, input_text: str = "Enter note's title >>> "):
     title = prompt(input_text)
-    notes = noteBook.find_matched_by_title(title)
+    notes = noteBook.find_matched_by_title(title.strip())
     if not notes:
         raise ValueError(f"Note with title [{title}] not found.")
     return (notes, title)
@@ -36,14 +37,25 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     return notes[idx]
 
 
-def add_note_tags(note: List[Note], tags: str) -> Note:
+def add_note_tags(note: Note, tags: str, is_printable: bool = False) -> Note:
     tags = tags.split(",")
     for tag in tags:
         try:
             note.add_tag(tag.strip())
-            print(f"[green]Added tag: {tag}[/]")
+            if not is_printable:
+                print(f"[green]Added tag: {tag}[/]")
         except Exception as e:
-            print(f"[red]{e}[/]")
+            if not is_printable:
+                print(f"[red]{e}[/]")
+
+
+def update_tag_list(note: Note) -> None:
+    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
+    tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
+    if not tags == old_tags:
+        note.remove_tags()
+        if tags:
+            add_note_tags(note, tags, is_printable=True)
 
 
 @input_error
@@ -96,10 +108,7 @@ def update_note(noteBook: NoteBook) -> str:
     new_desc = prompt("\nEdit note description >>> ", default=note.description)
     note.description = new_desc
 
-    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    tags = prompt(f"\nEdit tags, use ',' like delimiter >>> ", default=old_tags).strip()
-    if not tags == old_tags:
-        add_note_tags(note, tags)
+    update_tag_list(note)
 
     render_notes_list([note], title="Updated note")
     return ""
@@ -129,8 +138,7 @@ def add_tags_to_note(noteBook: NoteBook) -> str:
     )
 
     note = choose_note(notes, title, "add tags")
-    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ", default=old_tags).strip()
+    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ").strip()
 
     add_note_tags(note, tags)
 
@@ -154,19 +162,16 @@ def search_note_by_tag(noteBook: NoteBook) -> str:
 
 
 @input_error
-def updated_tags_from_note(noteBook: NoteBook) -> str:
-    """Updated tag from the note list"""
+def update_tags_from_note(noteBook: NoteBook) -> str:
+    """Update tags from the note list"""
 
     notes, title = find_matched_notes(
-        noteBook, input_text="Enter note's title which you want to delete >>> "
+        noteBook, input_text="Enter note's title which you want to update >>> "
     )
 
     note = choose_note(notes, title, "update tags")
 
-    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
-    if not tags == old_tags:
-        add_note_tags(note, tags)
+    update_tag_list(note)
 
     render_notes_list([note], title="Updated note")
     return ""

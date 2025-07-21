@@ -98,5 +98,5 @@ ADDRESS_BOOK_FILE_NAME=<address_book_file_path> NOTE_BOOK_FILE_NAME=<note_book_f
 | update_note            | Update note by title, matching partially or fully.                                          |
 | delete_note            | Delete note by title, matching partially or fully.                                          |
 | add_tags_to_note       | Add tags by note title, matching partially or fully.                                        |
-| updated_tags_from_note | Update tags by note title, matching partially or fully.                                     |
+| update_tags_from_note | Update tags by note title, matching partially or fully.                                     |
 | exit / close           | Close the app.                                                                              |
