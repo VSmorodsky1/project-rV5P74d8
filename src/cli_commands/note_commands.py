@@ -97,9 +97,8 @@ def update_note(noteBook: NoteBook) -> str:
     new_desc = prompt("\nEdit note description >>> ", default=note.description)
     note.description = new_desc
 
-    old_tags = ", ".join([tag.value for tag in note.tags]) if list(note.tags) else ""
-    tags = prompt(f"\nEdit tags, use ',' like delimiter >>> ", default=old_tags).strip()
-    if not tags == old_tags:
+    tags = prompt(f"Enter tags to '{title}', use ',' like delimiter >>> ").strip()
+    if tags:
         add_note_tags(note, tags)
 
     render_notes_list([note], title="Updated note")
