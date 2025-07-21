@@ -162,8 +162,8 @@ def search_note_by_tag(noteBook: NoteBook) -> str:
 
 
 @input_error
-def updated_tags_from_note(noteBook: NoteBook) -> str:
-    """Updated tag from the note list"""
+def update_tags_from_note(noteBook: NoteBook) -> str:
+    """Update tags from the note list"""
 
     notes, title = find_matched_notes(
         noteBook, input_text="Enter note's title which you want to delete >>> "
