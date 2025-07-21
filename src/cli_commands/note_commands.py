@@ -54,7 +54,8 @@ def update_tag_list(note: Note) -> None:
     tags = prompt(f"\nUpdate a tags list >>> ", default=old_tags).strip()
     if not tags == old_tags:
         note.remove_tags()
-        add_note_tags(note, tags)
+        if tags:
+            add_note_tags(note, tags)
 
 
 @input_error
