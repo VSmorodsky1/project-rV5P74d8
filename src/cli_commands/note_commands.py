@@ -37,15 +37,15 @@ def choose_note(notes: List[Note], title: str, action: str) -> Note:
     return notes[idx]
 
 
-def add_note_tags(note: Note, tags: str, noPrint: bool = False) -> Note:
+def add_note_tags(note: Note, tags: str, is_printable: bool = False) -> Note:
     tags = tags.split(",")
     for tag in tags:
         try:
             note.add_tag(tag.strip())
-            if not noPrint:
+            if not is_printable:
                 print(f"[green]Added tag: {tag}[/]")
         except Exception as e:
-            if not noPrint:
+            if not is_printable:
                 print(f"[red]{e}[/]")
 
 
@@ -55,7 +55,7 @@ def update_tag_list(note: Note) -> None:
     if not tags == old_tags:
         note.remove_tags()
         if tags:
-            add_note_tags(note, tags)
+            add_note_tags(note, tags, is_printable=True)
 
 
 @input_error
